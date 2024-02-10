@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		565281D62B77D03800979631 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281D52B77D03800979631 /* HomeView.swift */; };
+		565281D82B77D05300979631 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281D72B77D05300979631 /* FavoriteView.swift */; };
+		565281DC2B77D08000979631 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281DB2B77D08000979631 /* MapView.swift */; };
+		565281E02B77F92000979631 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281DF2B77F92000979631 /* Station.swift */; };
 		5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */; };
 		5671F1542B6D3F9A00BB62FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1532B6D3F9A00BB62FF /* ContentView.swift */; };
 		5671F1562B6D3F9B00BB62FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5671F1552B6D3F9B00BB62FF /* Assets.xcassets */; };
@@ -14,6 +18,7 @@
 		5671F1632B6D3F9C00BB62FF /* ToutShussTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1622B6D3F9C00BB62FF /* ToutShussTests.swift */; };
 		5671F16D2B6D3F9C00BB62FF /* ToutShussUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F16C2B6D3F9C00BB62FF /* ToutShussUITests.swift */; };
 		5671F16F2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F16E2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift */; };
+		5671F17C2B6D420C00BB62FF /* environnement.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5671F17B2B6D420C00BB62FF /* environnement.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		565281D52B77D03800979631 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		565281D72B77D05300979631 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
+		565281DB2B77D08000979631 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		565281DF2B77F92000979631 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		5671F14E2B6D3F9A00BB62FF /* ToutShuss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToutShuss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussApp.swift; sourceTree = "<group>"; };
 		5671F1532B6D3F9A00BB62FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +53,7 @@
 		5671F1682B6D3F9C00BB62FF /* ToutShussUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToutShussUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5671F16C2B6D3F9C00BB62FF /* ToutShussUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussUITests.swift; sourceTree = "<group>"; };
 		5671F16E2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5671F17B2B6D420C00BB62FF /* environnement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = environnement.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,11 @@
 				5671F1532B6D3F9A00BB62FF /* ContentView.swift */,
 				5671F1552B6D3F9B00BB62FF /* Assets.xcassets */,
 				5671F1572B6D3F9B00BB62FF /* Preview Content */,
+				5671F17B2B6D420C00BB62FF /* environnement.plist */,
+				565281D52B77D03800979631 /* HomeView.swift */,
+				565281D72B77D05300979631 /* FavoriteView.swift */,
+				565281DB2B77D08000979631 /* MapView.swift */,
+				565281DF2B77F92000979631 /* Station.swift */,
 			);
 			path = ToutShuss;
 			sourceTree = "<group>";
@@ -232,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5671F1592B6D3F9B00BB62FF /* Preview Assets.xcassets in Resources */,
+				5671F17C2B6D420C00BB62FF /* environnement.plist in Resources */,
 				5671F1562B6D3F9B00BB62FF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				565281D82B77D05300979631 /* FavoriteView.swift in Sources */,
+				565281D62B77D03800979631 /* HomeView.swift in Sources */,
+				565281DC2B77D08000979631 /* MapView.swift in Sources */,
 				5671F1542B6D3F9A00BB62FF /* ContentView.swift in Sources */,
+				565281E02B77F92000979631 /* Station.swift in Sources */,
 				5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
