@@ -13,7 +13,7 @@ struct HomeView: View {
         case filter, open, close
         var id: Self { self }
     }
-    
+
     @StateObject var thisBookStations: BookStations = bookStations
     
     @State private var selectedFlavor: Filter = .filter
@@ -55,8 +55,11 @@ struct HomeView: View {
 
 struct StationCardView: View {
     let station: Station
+    @State var thisClientLocation: Location = clientLocation
+    @State var travelTime: Int = 0
+    @State var travelDistance: Int = 0
     let onFavoriteToggle: () -> Void
-    
+
     var body: some View {
         VStack {
             AsyncImage(url: URL(string: "https://img.freepik.com/photos-gratuite/portrait-belle-chaine-montagnes-recouverte-neige-sous-ciel-nuageux_181624-4974.jpg"))
@@ -70,7 +73,6 @@ struct StationCardView: View {
                .clipShape(RoundedRectangle(cornerRadius: 12))
             
             HStack {
-                
                 Text(station.name)
                     .font(.title)
                     .padding(.leading, 10)
@@ -85,17 +87,35 @@ struct StationCardView: View {
                         .padding()
                 }
             }
+            HStack{
+                Text("\(secondsToHoursMinutesSeconds(travelTime))")
+                Text("\(travelDistance)km")
+                    .onAppear {
+                        // Lorsque la vue apparaît, récupérer le temps de trajet
+                        station.getTravelTime(clientCoordinate: thisClientLocation.location) { travelTime, travelDistance in
+                            self.travelTime = travelTime
+                            self.travelDistance = travelDistance
+                        }
+                    }
+                
+            }.padding(.bottom)
             
         }
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
     }
+    
+    func secondsToHoursMinutesSeconds(_ time: Int) -> (String) {
+        let h: Int = (time / 60)
+        let m: Int = (time % 60) % 60
+        return ("\(h)h\(m)")
+    }
 }
 
 
 
 #Preview {
-    HomeView()
+    ContentView()
 }
 
