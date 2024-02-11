@@ -8,13 +8,47 @@
 import SwiftUI
 
 struct FavoriteView: View {
+    enum Filter: String, CaseIterable, Identifiable {
+        case filter, open, close
+        var id: Self { self }
+    }
+    
+    @StateObject var thisBookStations: BookStations = bookStations
+    
+    @State private var selectedFlavor: Filter = .filter
+    @State private var search: String = ""
+    @State private var searchIsActive: Bool = false
+    @State private var viewStations: [Station] = []
+    
     var body: some View {
-        ZStack{
-            Color.yellow
-            
-            Image(systemName: "star.fill")
-                .foregroundColor(Color.white)
-                .font(.system(size: 200.0))
+        NavigationStack{
+            VStack{
+                HStack{
+                    Picker("Flavor", selection: $selectedFlavor) {
+                        Text("Filter").tag(Filter.filter)
+                        Text("Open").tag(Filter.open)
+                        Text("Close").tag(Filter.close)
+                    }
+                    Spacer()
+                }
+                .padding(.leading, 20)
+                Text(search)
+                ScrollView {
+                    LazyVStack(spacing: 20) {
+                        ForEach(thisBookStations.stations.indices, id: \.self) { index in
+                            if (thisBookStations.stations[index].isFavorite){
+                                StationCardView(station: thisBookStations.stations[index]) {
+                                    thisBookStations.stations[index].setFavorite()
+                                    thisBookStations.save()
+                                }
+                            }
+                           
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                }
+            }
+            .navigationTitle("Favorite")
         }
     }
 }

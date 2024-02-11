@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-
-
-
 struct HomeView: View {
     
     enum Filter: String, CaseIterable, Identifiable {
@@ -17,8 +14,8 @@ struct HomeView: View {
         var id: Self { self }
     }
     
-    @StateObject var bookStations: BookStations = BookStations()
-
+    @StateObject var thisBookStations: BookStations = bookStations
+    
     @State private var selectedFlavor: Filter = .filter
     @State private var search: String = ""
     @State private var searchIsActive: Bool = false
@@ -35,12 +32,14 @@ struct HomeView: View {
                     Spacer()
                 }
                 .padding(.leading, 20)
-                
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        ForEach(bookStations.stations.indices, id: \.self) { index in
-                            StationCardView(station: bookStations.stations[index]) {
-                                bookStations.stations[index].setFavorite()
+                        ForEach(thisBookStations.stations.indices, id: \.self) { index in
+                            if (thisBookStations.stations[index].name.lowercased().contains(search.lowercased()) || search.isEmpty){
+                                StationCardView(station: thisBookStations.stations[index]) {
+                                    thisBookStations.stations[index].setFavorite()
+                                    thisBookStations.save()
+                                }
                             }
                         }
                     }
@@ -49,14 +48,6 @@ struct HomeView: View {
             }
             .navigationTitle("Home")
             .searchable(text: $search, isPresented: $searchIsActive, prompt: "Search..")
-        }
-    }
-    
-    var searchResults: BookStations {
-        if search.isEmpty {
-            return bookStations
-        } else {
-            return bookStations.filterStations(with: search)
         }
     }
 }
@@ -68,12 +59,6 @@ struct StationCardView: View {
     
     var body: some View {
         VStack {
-//            Image(stationName)
-//                .resizable()
-//                .aspectRatio(contentMode: .fill)
-//                .frame(height: 200)
-//                .clipped()
-           
             AsyncImage(url: URL(string: "https://img.freepik.com/photos-gratuite/portrait-belle-chaine-montagnes-recouverte-neige-sous-ciel-nuageux_181624-4974.jpg"))
             { image in
                image.resizable()

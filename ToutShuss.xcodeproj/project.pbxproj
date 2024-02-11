@@ -104,6 +104,7 @@
 		5671F1502B6D3F9A00BB62FF /* ToutShuss */ = {
 			isa = PBXGroup;
 			children = (
+				565281DF2B77F92000979631 /* Station.swift */,
 				5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */,
 				5671F1532B6D3F9A00BB62FF /* ContentView.swift */,
 				5671F1552B6D3F9B00BB62FF /* Assets.xcassets */,
@@ -112,7 +113,6 @@
 				565281D52B77D03800979631 /* HomeView.swift */,
 				565281D72B77D05300979631 /* FavoriteView.swift */,
 				565281DB2B77D08000979631 /* MapView.swift */,
-				565281DF2B77F92000979631 /* Station.swift */,
 			);
 			path = ToutShuss;
 			sourceTree = "<group>";

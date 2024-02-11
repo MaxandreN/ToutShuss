@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var bookStations: BookStations = BookStations()
+    
     var body: some View {
         TabView{
             HomeView()
