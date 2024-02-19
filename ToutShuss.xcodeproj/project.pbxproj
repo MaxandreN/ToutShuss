@@ -13,6 +13,10 @@
 		565281E02B77F92000979631 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281DF2B77F92000979631 /* Station.swift */; };
 		565281E52B78DBEF00979631 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281E42B78DBEF00979631 /* Location.swift */; };
 		565281E92B7939C800979631 /* StationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281E82B7939C800979631 /* StationCardView.swift */; };
+		565281EB2B79629D00979631 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281EA2B79629D00979631 /* Permissions.swift */; };
+		565281ED2B79647000979631 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281EC2B79647000979631 /* AppDelegate.swift */; };
+		565281EF2B7964D700979631 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281EE2B7964D700979631 /* NotificationHandler.swift */; };
+		565281F12B79664900979631 /* PermissionsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281F02B79664900979631 /* PermissionsExtensions.swift */; };
 		5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */; };
 		5671F1542B6D3F9A00BB62FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1532B6D3F9A00BB62FF /* ContentView.swift */; };
 		5671F1562B6D3F9B00BB62FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5671F1552B6D3F9B00BB62FF /* Assets.xcassets */; };
@@ -47,6 +51,10 @@
 		565281DF2B77F92000979631 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		565281E42B78DBEF00979631 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		565281E82B7939C800979631 /* StationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationCardView.swift; sourceTree = "<group>"; };
+		565281EA2B79629D00979631 /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		565281EC2B79647000979631 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		565281EE2B7964D700979631 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		565281F02B79664900979631 /* PermissionsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsExtensions.swift; sourceTree = "<group>"; };
 		5671F14E2B6D3F9A00BB62FF /* ToutShuss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToutShuss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussApp.swift; sourceTree = "<group>"; };
 		5671F1532B6D3F9A00BB62FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +127,10 @@
 				565281DB2B77D08000979631 /* MapView.swift */,
 				565281E42B78DBEF00979631 /* Location.swift */,
 				565281E82B7939C800979631 /* StationCardView.swift */,
+				565281EA2B79629D00979631 /* Permissions.swift */,
+				565281EC2B79647000979631 /* AppDelegate.swift */,
+				565281EE2B7964D700979631 /* NotificationHandler.swift */,
+				565281F02B79664900979631 /* PermissionsExtensions.swift */,
 			);
 			path = ToutShuss;
 			sourceTree = "<group>";
@@ -282,10 +294,14 @@
 				565281D82B77D05300979631 /* FavoriteView.swift in Sources */,
 				565281D62B77D03800979631 /* HomeView.swift in Sources */,
 				565281E52B78DBEF00979631 /* Location.swift in Sources */,
+				565281EF2B7964D700979631 /* NotificationHandler.swift in Sources */,
 				565281DC2B77D08000979631 /* MapView.swift in Sources */,
 				5671F1542B6D3F9A00BB62FF /* ContentView.swift in Sources */,
+				565281F12B79664900979631 /* PermissionsExtensions.swift in Sources */,
 				565281E02B77F92000979631 /* Station.swift in Sources */,
+				565281EB2B79629D00979631 /* Permissions.swift in Sources */,
 				5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */,
+				565281ED2B79647000979631 /* AppDelegate.swift in Sources */,
 				565281E92B7939C800979631 /* StationCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

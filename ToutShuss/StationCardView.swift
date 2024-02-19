@@ -13,7 +13,7 @@ struct StationCardView: View {
     @State var travelTime: Int = 0
     @State var travelDistance: Int = 0
     let onFavoriteToggle: () -> Void
-    
+    @State var isShowingDetail = false
     
     init(station: Station, onFavoriteToggle: @escaping () -> Void) {
         self.onFavoriteToggle = onFavoriteToggle
@@ -37,7 +37,6 @@ struct StationCardView: View {
                 Text(station.name)
                     .font(.title)
                     .padding(.leading, 10)
-                
                 Spacer()
                 
                 Button(action: {
@@ -45,12 +44,21 @@ struct StationCardView: View {
                 }) {
                     Image(systemName: station.isFavorite ? "star.fill" : "star")
                         .foregroundColor(station.isFavorite ? .yellow : .gray)
-                        .padding()
+                        .padding(.trailing)
                 }
+                StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0)
+                    .padding(.trailing)
             }
             HStack{
-                StationtopicView(text: "\(travelDistance)km", condition: travelDistance > 0)
-                StationtopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0)
+                if(station.minAltitude != nil && station.maxAltitude != nil)
+                {
+                    Text("\(station.minAltitude ?? 0)m - \(station.maxAltitude ?? 0)m")
+                }else if(station.maxAltitude != nil){
+                    Text("\(station.maxAltitude ?? 0)m")
+                }else if(station.minAltitude != nil){
+                    Text("\(station.minAltitude ?? 0)m")
+                }
+                StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0)
             }
             .padding(.bottom)
             .onAppear {
@@ -65,22 +73,9 @@ struct StationCardView: View {
         .cornerRadius(10)
         .shadow(radius: 5)
     }
-    
-    func secondsToHoursMinutesSeconds(_ time: Int) -> (String) {
-        if(time < 1){
-            return ""
-        }
-        let h: Int = (time / 60)
-        let m: Int = (time % 60) % 60
-        if h < 1 {
-            return ("\(m)min")
-        }else{
-            return ("\(h)h\(m)")
-        }
-    }
 }
 
-struct StationtopicView: View {
+struct StationTopicView: View {
     var text: String
     var condition: Bool
     
@@ -89,7 +84,7 @@ struct StationtopicView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(.yellow)
-                    .frame(width: getTextWidth(text: text) + 30, height: 40)
+                    .frame(width: getTextWidth(text: text) + 30, height: 30)
                 Text("\(text)")
             }
         }
@@ -101,4 +96,23 @@ struct StationtopicView: View {
         let size = (text as NSString).size(withAttributes: fontAttributes)
         return size.width
     }
+}
+
+func secondsToHoursMinutesSeconds(_ time: Int) -> (String) {
+    if(time < 1){
+        return ""
+    }
+    let h: Int = (time / 60)
+    let m: Int = (time % 60) % 60
+    let zero: String = m < 10 ? "0" : ""
+    if h < 1 {
+        return ("\(zero)\(m)min")
+    }else{
+        return ("\(h)h\(zero)\(m)")
+    }
+}
+
+
+#Preview {
+    ContentView()
 }

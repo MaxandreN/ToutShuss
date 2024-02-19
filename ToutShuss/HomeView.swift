@@ -16,7 +16,7 @@ struct HomeView: View {
 
     @StateObject var thisBookStations: BookStations = bookStations
     
-    @State private var selectedFlavor: Filter = .filter
+    @State private var selectedFilter: Filter = .filter
     @State private var search: String = ""
     @State private var searchIsActive: Bool = false
     
@@ -24,7 +24,7 @@ struct HomeView: View {
         NavigationStack{
             VStack{
                 HStack{
-                    Picker("Flavor", selection: $selectedFlavor) {
+                    Picker("Filter", selection: $selectedFilter) {
                         Text("Filter").tag(Filter.filter)
                         Text("Open").tag(Filter.open)
                         Text("Close").tag(Filter.close)

@@ -17,7 +17,7 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
-            MapView()
+            MapView(annotationsItems: annotationItemsFromRawRegion, selectedItem: .constant(nil))
                 .tabItem() {
                     Image(systemName: "location.fill")
                     Text("Explore")
