@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var bookStations: BookStations = BookStations()
+    @ObservedObject var thisBookStation: BookStations = bookStations
     
     var body: some View {
         TabView{
@@ -23,7 +23,7 @@ struct ContentView: View {
                     Text("Explore")
                 }
             FavoriteView()
-                .badge(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                .badge(thisBookStation.stations.filter { $0.isFavorite }.count)
                 .tabItem() {
                     Image(systemName: "star.fill")
                     Text("Favorite")

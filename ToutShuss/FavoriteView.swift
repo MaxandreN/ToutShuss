@@ -25,9 +25,9 @@ struct FavoriteView: View {
             VStack{
                 HStack{
                     Picker("Filter", selection: $selectedFilter) {
-                        Text("Filter").tag(Filter.filter)
-                        Text("Open").tag(Filter.open)
-                        Text("Close").tag(Filter.close)
+                        Text("Filtre").tag(Filter.filter)
+                        Text("Ouvert").tag(Filter.open)
+                        Text("Fermé").tag(Filter.close)
                     }
                     Spacer()
                 }

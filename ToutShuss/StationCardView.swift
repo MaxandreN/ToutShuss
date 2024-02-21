@@ -18,12 +18,15 @@ struct StationCardView: View {
     init(station: Station, onFavoriteToggle: @escaping () -> Void) {
         self.onFavoriteToggle = onFavoriteToggle
         self.station = station
-        
+    }
+    
+    mutating func setTravel (travelTime: Int){
+        self.station.travelTime = travelTime
     }
     
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: "https://img.freepik.com/photos-gratuite/portrait-belle-chaine-montagnes-recouverte-neige-sous-ciel-nuageux_181624-4974.jpg"))
+            AsyncImage(url: URL(string: (station.galerie.cover)))
             { image in
                 image.resizable()
                     .aspectRatio(contentMode: .fill)
@@ -46,19 +49,19 @@ struct StationCardView: View {
                         .foregroundColor(station.isFavorite ? .yellow : .gray)
                         .padding(.trailing)
                 }
-                StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0)
+                StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0, color: Color.yellow)
                     .padding(.trailing)
             }
             HStack{
-                if(station.minAltitude != nil && station.maxAltitude != nil)
+                if(station.minAltitude != -1 && station.maxAltitude != -1)
                 {
-                    Text("\(station.minAltitude ?? 0)m - \(station.maxAltitude ?? 0)m")
-                }else if(station.maxAltitude != nil){
-                    Text("\(station.maxAltitude ?? 0)m")
-                }else if(station.minAltitude != nil){
-                    Text("\(station.minAltitude ?? 0)m")
+                    Text("\(station.minAltitude)m - \(station.maxAltitude)m")
+                }else if(station.maxAltitude != -1){
+                    Text("\(station.maxAltitude)m")
+                }else if(station.minAltitude != -1){
+                    Text("\(station.minAltitude)m")
                 }
-                StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0)
+                StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0, color: Color.yellow)
             }
             .padding(.bottom)
             .onAppear {
@@ -72,18 +75,26 @@ struct StationCardView: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
+        .onTapGesture {
+            isShowingDetail.toggle() // Affichez ou masquez la vue détaillée lors du clic sur la carte
+        }
+        .sheet(isPresented: $isShowingDetail) {
+            StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle, isShowingDetail: isShowingDetail)
+                .presentationDetents([.fraction(0.6)])
+        }
     }
 }
 
 struct StationTopicView: View {
     var text: String
     var condition: Bool
+    var color: Color
     
     var body: some View{
         if condition {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(.yellow)
+                    .foregroundColor(color)
                     .frame(width: getTextWidth(text: text) + 30, height: 30)
                 Text("\(text)")
             }
@@ -111,7 +122,6 @@ func secondsToHoursMinutesSeconds(_ time: Int) -> (String) {
         return ("\(h)h\(zero)\(m)")
     }
 }
-
 
 #Preview {
     ContentView()
