@@ -25,70 +25,73 @@ struct StationCardView: View {
     }
     
     var body: some View {
-        VStack {
-            AsyncImage(url: URL(string: (station.galerie.cover)))
-            { image in
-                image.resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .clipped()
-            } placeholder: {
-                ProgressView()
-            }.frame(height: 180)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-            
-            HStack {
-                Text(station.name)
-                    .font(.title)
-                    .padding(.leading, 10)
-                Spacer()
+            VStack {
+                AsyncImage(url: URL(string: (station.galerie.cover)))
+                { image in
+                    image.resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipped()
+                } placeholder: {
+                    ProgressView()
+                }.frame(height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 
-                Button(action: {
-                    onFavoriteToggle()
-                }) {
-                    Image(systemName: station.isFavorite ? "star.fill" : "star")
-                        .foregroundColor(station.isFavorite ? .yellow : .gray)
+                HStack {
+                    Text(station.name)
+                        .font(.title)
+                        .padding(.leading, 10)
+                    Spacer()
+                    
+                    Button(action: {
+                        onFavoriteToggle()
+                    }) {
+                        Image(systemName: station.isFavorite ? "star.fill" : "star")
+                            .foregroundColor(station.isFavorite ? .yellow : .gray)
+                            .padding(.trailing)
+                    }
+                    StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0, color: Color.yellow)
                         .padding(.trailing)
                 }
-                StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0, color: Color.yellow)
-                    .padding(.trailing)
-            }
-            HStack{
-                if(station.minAltitude != -1 && station.maxAltitude != -1)
-                {
-                    Text("\(station.minAltitude)m - \(station.maxAltitude)m")
-                }else if(station.maxAltitude != -1){
-                    Text("\(station.maxAltitude)m")
-                }else if(station.minAltitude != -1){
-                    Text("\(station.minAltitude)m")
+                HStack{
+                    if(station.minAltitude != -1 && station.maxAltitude != -1)
+                    {
+                        Text("\(station.minAltitude)m - \(station.maxAltitude)m")
+                    }else if(station.maxAltitude != -1){
+                        Text("\(station.maxAltitude)m")
+                    }else if(station.minAltitude != -1){
+                        Text("\(station.minAltitude)m")
+                    }
+                    StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0, color: Color.yellow)
                 }
-                StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0, color: Color.yellow)
-            }
-            .padding(.bottom)
-            .onAppear {
-                station.getTravelTime(clientCoordinate: self.thisClientLocation.location) { travelTime, travelDistance in
-                    self.travelTime = travelTime
-                    self.travelDistance = travelDistance
+                .padding(.bottom)
+                .onAppear {
+                    station.getTravelTime(clientCoordinate: self.thisClientLocation.location) { travelTime, travelDistance in
+                        self.travelTime = travelTime
+                        self.travelDistance = travelDistance
+                    }
                 }
+                
             }
-            
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(radius: 5)
+            .onTapGesture {
+                isShowingDetail.toggle()
+            }
+            .sheet(isPresented: $isShowingDetail) {
+                StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle, isShowingModal: $isShowingDetail)
+                    .presentationDetents([.fraction(0.6)])
+            }
         }
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 5)
-        .onTapGesture {
-            isShowingDetail.toggle() // Affichez ou masquez la vue détaillée lors du clic sur la carte
-        }
-        .sheet(isPresented: $isShowingDetail) {
-            StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle, isShowingDetail: isShowingDetail)
-                .presentationDetents([.fraction(0.6)])
-        }
+    
     }
-}
 
 struct StationTopicView: View {
     var text: String
     var condition: Bool
     var color: Color
+    var fontColor : Color = Color.black
+    var fontWeight : Font.Weight = .regular
     
     var body: some View{
         if condition {
@@ -97,6 +100,8 @@ struct StationTopicView: View {
                     .foregroundColor(color)
                     .frame(width: getTextWidth(text: text) + 30, height: 30)
                 Text("\(text)")
+                    .foregroundStyle(fontColor)
+                    .fontWeight(fontWeight)
             }
         }
     }

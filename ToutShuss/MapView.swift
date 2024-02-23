@@ -73,9 +73,16 @@ struct MapView: View {
                     Button(action: {
                         selectedItem = item
                     }, label: {
-                        AnyView(Image(systemName: "circle.fill")
-                           .frame(width: 5, height: 5, alignment: .center)
-                           .foregroundColor(.red))
+                        AnyView(
+                            Image(systemName: "skis.fill")
+                                .padding(4)
+                                .background(.purple)
+                                .cornerRadius(100)
+                                .frame(width: 5, height: 5, alignment: .center)
+                                .foregroundColor(.white)
+                           
+                        )
+                            
                     })
                 }
             }

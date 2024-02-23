@@ -19,6 +19,8 @@
 		565281F12B79664900979631 /* PermissionsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281F02B79664900979631 /* PermissionsExtensions.swift */; };
 		566F30E82B85DBC500B06428 /* StationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566F30E72B85DBC500B06428 /* StationDetailView.swift */; };
 		566F30EA2B85E5DB00B06428 /* StationModaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566F30E92B85E5DB00B06428 /* StationModaleView.swift */; };
+		566F30EC2B87CE5F00B06428 /* WeatherReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566F30EB2B87CE5F00B06428 /* WeatherReport.swift */; };
+		566F30EE2B87CF4C00B06428 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566F30ED2B87CF4C00B06428 /* Event.swift */; };
 		5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */; };
 		5671F1542B6D3F9A00BB62FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F1532B6D3F9A00BB62FF /* ContentView.swift */; };
 		5671F1562B6D3F9B00BB62FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5671F1552B6D3F9B00BB62FF /* Assets.xcassets */; };
@@ -59,6 +61,8 @@
 		565281F02B79664900979631 /* PermissionsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsExtensions.swift; sourceTree = "<group>"; };
 		566F30E72B85DBC500B06428 /* StationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailView.swift; sourceTree = "<group>"; };
 		566F30E92B85E5DB00B06428 /* StationModaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationModaleView.swift; sourceTree = "<group>"; };
+		566F30EB2B87CE5F00B06428 /* WeatherReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherReport.swift; sourceTree = "<group>"; };
+		566F30ED2B87CF4C00B06428 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5671F14E2B6D3F9A00BB62FF /* ToutShuss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToutShuss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussApp.swift; sourceTree = "<group>"; };
 		5671F1532B6D3F9A00BB62FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 				565281EE2B7964D700979631 /* NotificationHandler.swift */,
 				565281F02B79664900979631 /* PermissionsExtensions.swift */,
 				566F30E92B85E5DB00B06428 /* StationModaleView.swift */,
+				566F30EB2B87CE5F00B06428 /* WeatherReport.swift */,
+				566F30ED2B87CF4C00B06428 /* Event.swift */,
 			);
 			path = ToutShuss;
 			sourceTree = "<group>";
@@ -305,10 +311,12 @@
 				565281DC2B77D08000979631 /* MapView.swift in Sources */,
 				566F30E82B85DBC500B06428 /* StationDetailView.swift in Sources */,
 				5671F1542B6D3F9A00BB62FF /* ContentView.swift in Sources */,
+				566F30EE2B87CF4C00B06428 /* Event.swift in Sources */,
 				565281F12B79664900979631 /* PermissionsExtensions.swift in Sources */,
 				565281E02B77F92000979631 /* Station.swift in Sources */,
 				565281EB2B79629D00979631 /* Permissions.swift in Sources */,
 				5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */,
+				566F30EC2B87CE5F00B06428 /* WeatherReport.swift in Sources */,
 				565281ED2B79647000979631 /* AppDelegate.swift in Sources */,
 				565281E92B7939C800979631 /* StationCardView.swift in Sources */,
 			);

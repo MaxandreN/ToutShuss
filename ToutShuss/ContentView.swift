@@ -28,7 +28,7 @@ struct ContentView: View {
                     Image(systemName: "star.fill")
                     Text("Favorite")
                 }
-        }
+        }.accentColor(.purple)
     }
 }
 

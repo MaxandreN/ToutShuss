@@ -13,8 +13,7 @@ struct StationModaleView: View {
     @State var travelTime: Int = -1
     @State var travelDistance: Int = -1
     let onFavoriteToggle: () -> Void
-    @State var isShowingDetail = false
-    @State private var navigateToDetail = false
+    @Binding var isShowingModal: Bool
     
     var body: some View {
         NavigationView{
@@ -43,7 +42,7 @@ struct StationModaleView: View {
                     Spacer()
                     
                     // Topic Ouvert / Fermé
-                    StationTopicView(text: "\((station.isOpen ?? nil) == true ? "Ouvert" : "Fermé")", condition: (station.isOpen ?? nil) != nil, color: (station.isOpen ?? nil) == true ? Color.green: Color.red)
+                    StationTopicView(text: "\((station.isOpen ?? nil) == true ? "Ouvert" : "Fermé")", condition: (station.isOpen ?? nil) != nil, color: (station.isOpen ?? nil) == true ? Color.green: Color.red, fontColor: .white, fontWeight: .bold)
                 }
                 .padding()
                 HStack{
@@ -99,9 +98,9 @@ struct StationModaleView: View {
                 }.padding()
                 Spacer()
                 Button(action: {
-                    isShowingDetail = false // Fermez la modal en mettant son état à false
+                   //isShowingModal = false
                 }) {
-                    NavigationLink(destination: StationDetailView()) {
+                    NavigationLink(destination: StationDetailView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle)){
                         HStack {
                             Image(systemName: "mountain.2.fill")
                                 .foregroundColor(.white)
@@ -114,6 +113,7 @@ struct StationModaleView: View {
                         .background(Color.purple)
                         .cornerRadius(10)
                     }
+                        
                 }
                 .padding()
             }
