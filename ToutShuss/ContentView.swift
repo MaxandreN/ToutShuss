@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var bookStation: BookStations = BookStations()
-    @ObservedObject var clientLocation: Location = Location(long: 6.11667, lat: 45.9)
+    @ObservedObject var clientLocation: Location = Location()
     
     var body: some View {
         TabView{

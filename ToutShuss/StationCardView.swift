@@ -67,7 +67,7 @@ struct StationCardView: View {
             }
             .padding(.bottom)
             .onAppear {
-                station.getTravelTime(clientCoordinate: self.clientLocation.location) { travelTime, travelDistance in
+                station.getTravelTime(clientLocation: clientLocation) { travelTime, travelDistance in
                     self.travelTime = travelTime
                     self.travelDistance = travelDistance
                 }

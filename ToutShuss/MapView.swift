@@ -21,8 +21,11 @@ struct AnnotationItem: Identifiable, Equatable {
         self.lat = lat
         self.lon = lon
     }
+    
+    mutating func toggleMonitored () {
+        isMonitored = !isMonitored
+    }
 }
-
 
 
 struct MapView: View {
@@ -44,24 +47,15 @@ struct MapView: View {
     }
     
     @Binding var selectedItem: AnnotationItem?
+    @State var sheetSize: CGFloat = 0.6
     
     @State private var userTrackingMode: MapUserTrackingMode = .none
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(
-            latitude: 45.91044837855673,
-            longitude: 6.143521781870996
-        ),
-        span: MKCoordinateSpan(
-            latitudeDelta: 1,
-            longitudeDelta: 1
-        )
-    )
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
             
             Map(
-                coordinateRegion: $region,
+                coordinateRegion: $clientLocation.region,
                 interactionModes: MapInteractionModes.all,
                 showsUserLocation: true,
                 userTrackingMode: $userTrackingMode,
@@ -81,9 +75,7 @@ struct MapView: View {
                                 .cornerRadius(100)
                                 .frame(width: 5, height: 5, alignment: .center)
                                 .foregroundColor(.white)
-                           
                         )
-                            
                     })
                 }
             }
@@ -106,17 +98,16 @@ struct MapView: View {
             .frame(alignment: .topLeading)
         }.onReceive(permissions.$localizationPermissionState, perform: { _ in
             centerRegionOnUser()
-        }).environmentObject(clientLocation)
+        })
+        .environmentObject(clientLocation)
     }
     
     func centerRegionOnUser() {
         if permissions.localizationPermissionState != .denied || permissions.localizationPermissionState == .notDetermined {
             userTrackingMode = .follow
             if let currentLocation = permissions.locationManager.location {
-                region = MKCoordinateRegion(center: currentLocation.coordinate, span: MKCoordinateSpan(
-                    latitudeDelta: 10,
-                    longitudeDelta: 10
-                ))
+                clientLocation.lat = currentLocation.coordinate.latitude
+                clientLocation.long = currentLocation.coordinate.longitude
             }
         }
     }
