@@ -9,14 +9,14 @@ import SwiftUI
 
 struct StationCardView: View {
     var station: Station
+    @EnvironmentObject var bookStations: BookStations
     @State var thisClientLocation: Location = clientLocation
     @State var travelTime: Int = 0
     @State var travelDistance: Int = 0
-    let onFavoriteToggle: () -> Void
+    @State var sheetSize: CGFloat = 0.6
     @State var isShowingDetail = false
     
-    init(station: Station, onFavoriteToggle: @escaping () -> Void) {
-        self.onFavoriteToggle = onFavoriteToggle
+    init(station: Station) {
         self.station = station
     }
     
@@ -43,7 +43,8 @@ struct StationCardView: View {
                     Spacer()
                     
                     Button(action: {
-                        onFavoriteToggle()
+                        bookStations.toggleFavorite(station: station)
+                        //set favorit
                     }) {
                         Image(systemName: station.isFavorite ? "star.fill" : "star")
                             .foregroundColor(station.isFavorite ? .yellow : .gray)
@@ -79,8 +80,10 @@ struct StationCardView: View {
                 isShowingDetail.toggle()
             }
             .sheet(isPresented: $isShowingDetail) {
-                StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle, isShowingModal: $isShowingDetail)
-                    .presentationDetents([.fraction(0.6)])
+                StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, sheetSize: $sheetSize
+                )
+                .presentationDetents([.fraction(sheetSize), .large])
+                .animation(.easeIn, value: sheetSize)
             }
         }
     

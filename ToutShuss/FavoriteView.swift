@@ -13,7 +13,7 @@ struct FavoriteView: View {
         var id: Self { self }
     }
     
-    @StateObject var thisBookStations: BookStations = bookStations
+    @EnvironmentObject var bookStations: BookStations
     
     @State private var selectedFilter: Filter = .filter
     @State private var search: String = ""
@@ -35,12 +35,9 @@ struct FavoriteView: View {
                 Text(search)
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        ForEach(thisBookStations.stations.indices, id: \.self) { index in
-                            if (thisBookStations.stations[index].isFavorite){
-                                StationCardView(station: thisBookStations.stations[index]) {
-                                    thisBookStations.stations[index].setFavorite()
-                                    thisBookStations.save()
-                                }
+                        ForEach(bookStations.stations.indices, id: \.self) { index in
+                            if (bookStations.stations[index].isFavorite){
+                                StationCardView(station: bookStations.stations[index])
                             }
                            
                         }

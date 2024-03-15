@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct StationModaleView: View {
+    @EnvironmentObject var bookStations: BookStations
     var station: Station
     @State var thisClientLocation: Location = clientLocation
     @State var travelTime: Int = -1
     @State var travelDistance: Int = -1
-    let onFavoriteToggle: () -> Void
-    @Binding var isShowingModal: Bool
+    @State var isPresented: Bool = false
+    @Binding var sheetSize: CGFloat
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             VStack {
                 HStack{
                     // Image de la sataion
@@ -87,7 +88,7 @@ struct StationModaleView: View {
                     Spacer()
                     VStack{
                         Button(action: {
-                            onFavoriteToggle()
+                            bookStations.toggleFavorite(station: station)
                         }) {
                             Image(systemName: station.isFavorite ? "star.fill" : "star")
                                 .foregroundColor(station.isFavorite ? .yellow : .gray)
@@ -97,27 +98,54 @@ struct StationModaleView: View {
                     }
                 }.padding()
                 Spacer()
+                
                 Button(action: {
-                   //isShowingModal = false
-                }) {
-                    NavigationLink(destination: StationDetailView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle)){
-                        HStack {
-                            Image(systemName: "mountain.2.fill")
-                                .foregroundColor(.white)
-                                .padding(.trailing)
-                            Text("Découvrir la station")
-                                .foregroundColor(.white)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.purple)
-                        .cornerRadius(10)
+                    withAnimation {
+                        sheetSize = 1
+                        isPresented.toggle()
                     }
+                    
+                }, label: {
+                    HStack {
+                        Image(systemName: "mountain.2.fill")
+                            .foregroundColor(.white)
+                            .padding(.trailing)
+                        Text("Découvrir la station")
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.purple)
+                    .cornerRadius(10)
+                })
+                .navigationDestination(isPresented: $isPresented, destination: {
+                    StationDetailView(station: station,travelTime: travelTime, travelDistance: travelDistance)
+                    }
+                )
+                .onChange(of: isPresented, { oldValue, newValue in
+                    if !newValue {
                         
-                }
+                        sheetSize = 0.6
+                    }
+                })
                 .padding()
+                
+
+//                NavigationLink(destination: StationDetailView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle)){
+//                    HStack {
+//                        Image(systemName: "mountain.2.fill")
+//                            .foregroundColor(.white)
+//                            .padding(.trailing)
+//                        Text("Découvrir la station")
+//                            .foregroundColor(.white)
+//                    }
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(Color.purple)
+//                    .cornerRadius(10)
+//                }
             }
-        }
+        }.environmentObject(bookStations)
     }
 
 }

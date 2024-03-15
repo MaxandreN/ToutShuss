@@ -45,8 +45,6 @@ struct Location {
             
             let travelTime = response.routes.first?.expectedTravelTime ?? 0
             let travelTimeInMinutes = Int(travelTime / 60)
-            
-            print("Temps de trajet en minutes :", travelTimeInMinutes)
         }
     }
 }

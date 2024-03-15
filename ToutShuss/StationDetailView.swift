@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct StationDetailView: View {
+    @EnvironmentObject var bookStations: BookStations
     var station: Station
     @State var thisClientLocation: Location = clientLocation
     @State var travelTime: Int = -1
     @State var travelDistance: Int = -1
-    let onFavoriteToggle: () -> Void
     let formatter = DateFormatter()
     
     func format(date:Date, format:String = "EEEE, d MMM") -> String {
@@ -42,7 +42,7 @@ struct StationDetailView: View {
                     VStack{
                         // ajouter/retirer des favorits
                         Button(action: {
-                            onFavoriteToggle()
+                            bookStations.toggleFavorite(station:station)
                         }) {
                             Spacer()
                             Image(systemName: station.isFavorite ? "star.fill" : "star")

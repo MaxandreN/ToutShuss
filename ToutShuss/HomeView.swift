@@ -14,7 +14,7 @@ struct HomeView: View {
         var id: Self { self }
     }
 
-    @StateObject var thisBookStations: BookStations = bookStations
+    @EnvironmentObject var bookStations: BookStations
     
     @State private var selectedFilter: Filter = .filter
     @State private var search: String = ""
@@ -34,23 +34,19 @@ struct HomeView: View {
                 .padding(.leading, 20)
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        ForEach(thisBookStations.stations.filter { station in
+                        ForEach(bookStations.stations.filter { station in
                             station.name.lowercased().contains(search.lowercased()) || search.isEmpty
                         }) { station in
-                            StationCardView(station: station) {
-                                if let index = thisBookStations.stations.firstIndex(of: station) {
-                                    thisBookStations.stations[index].setFavorite()
-                                    thisBookStations.save()
-                                }
-                            }
+                            StationCardView(station: station) 
                         }
                     }
                     .padding(.horizontal, 20)
                 }
             }
+            
             .navigationTitle("Home")
             .searchable(text: $search, isPresented: $searchIsActive, prompt: "Search..")
-        }
+        }.environmentObject(bookStations)
     }
 }
 

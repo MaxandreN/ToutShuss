@@ -23,24 +23,24 @@ struct AnnotationItem: Identifiable, Equatable {
     }
 }
 
-var annotationItemsFromRawRegion : [AnnotationItem] {
-    get {
-        return bookStations.stations.map({
-            if let longitude = $0.long, let latitude = $0.lat {
-                AnnotationItem(id: $0.id, lat: latitude, lon: longitude)
-            }else{
-                AnnotationItem(id: $0.id, lat: 0, lon: 0)
-            }
-        })
-            
-    }
-}
+
 
 struct MapView: View {
-    
+    @EnvironmentObject var bookStations: BookStations
     @StateObject var permissions = Permissions()
     
-    var annotationsItems: [AnnotationItem]
+    var annotationsItems : [AnnotationItem] {
+        get {
+            return bookStations.stations.map({
+                if let longitude = $0.long, let latitude = $0.lat {
+                    AnnotationItem(id: $0.id, lat: latitude, lon: longitude)
+                }else{
+                    AnnotationItem(id: $0.id, lat: 0, lon: 0)
+                }
+            })
+                
+        }
+    }
     
     @Binding var selectedItem: AnnotationItem?
     
@@ -121,8 +121,6 @@ struct MapView: View {
     }
 }
 
-struct MapKitWithLocation_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView( annotationsItems: annotationItemsFromRawRegion, selectedItem: .constant(nil))
-    }
+#Preview {
+    ContentView()
 }

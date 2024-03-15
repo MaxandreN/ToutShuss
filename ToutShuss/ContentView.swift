@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var thisBookStation: BookStations = bookStations
+    @ObservedObject var bookStation: BookStations = BookStations()
     
     var body: some View {
         TabView{
@@ -17,18 +17,20 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
-            MapView(annotationsItems: annotationItemsFromRawRegion, selectedItem: .constant(nil))
+            MapView(selectedItem: .constant(nil))
                 .tabItem() {
                     Image(systemName: "location.fill")
                     Text("Explore")
                 }
             FavoriteView()
-                .badge(thisBookStation.stations.filter { $0.isFavorite }.count)
+                .badge(bookStation.stations.filter { $0.isFavorite }.count)
                 .tabItem() {
                     Image(systemName: "star.fill")
                     Text("Favorite")
                 }
-        }.accentColor(.purple)
+        }
+        .accentColor(.purple)
+        .environmentObject(bookStation)
     }
 }
 

@@ -75,23 +75,20 @@ struct Station: Identifiable, Hashable, Decodable, Encodable {
             self.weatherReports = weatherReports
         }
     
-    mutating func setFavorite() {
+    mutating func toggleFavorite() {
         self.isFavorite = !isFavorite
     }
     
     func getTravelTime(clientCoordinate: CLLocationCoordinate2D, completion: @escaping (Int, Int) -> Void ) {
-        print(self.travelTime, self.travelDistance)
         if(self.travelTime == -1 && self.travelDistance == -1){
             guard let stationLocation = location else {
                 completion(-1, -1)
                 return
             }
-            print("call")
             fetchTravelTime(from: clientCoordinate, to: stationLocation) { travelTimeInMinutes, distance in
                 completion(travelTimeInMinutes, distance)
             }
         }else{
-            print("get")
             completion(self.travelTime, self.travelDistance)
         }
         
@@ -620,8 +617,12 @@ class BookStations: ObservableObject {
             UserDefaults.standard.set(donnees, forKey: "stations")
         }
     }
+    
+    func toggleFavorite(station: Station) {
+        if let index = stations.firstIndex(where: { $0.id == station.id }) {
+            stations[index].toggleFavorite()
+        }
+    }
 }
-
-var bookStations: BookStations = BookStations()
 
 
