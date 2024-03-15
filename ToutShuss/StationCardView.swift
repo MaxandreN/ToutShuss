@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct StationCardView: View {
-    var station: Station
     @EnvironmentObject var bookStations: BookStations
-    @State var thisClientLocation: Location = clientLocation
+    @EnvironmentObject var clientLocation: Location
+    
+    var station: Station
     @State var travelTime: Int = 0
     @State var travelDistance: Int = 0
     @State var sheetSize: CGFloat = 0.6
@@ -25,69 +26,69 @@ struct StationCardView: View {
     }
     
     var body: some View {
-            VStack {
-                AsyncImage(url: URL(string: (station.galerie.cover)))
-                { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .clipped()
-                } placeholder: {
-                    ProgressView()
-                }.frame(height: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+        VStack {
+            AsyncImage(url: URL(string: (station.galerie.cover)))
+            { image in
+                image.resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+            } placeholder: {
+                ProgressView()
+            }.frame(height: 180)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            
+            HStack {
+                Text(station.name)
+                    .font(.title)
+                    .padding(.leading, 10)
+                Spacer()
                 
-                HStack {
-                    Text(station.name)
-                        .font(.title)
-                        .padding(.leading, 10)
-                    Spacer()
-                    
-                    Button(action: {
-                        bookStations.toggleFavorite(station: station)
-                        //set favorit
-                    }) {
-                        Image(systemName: station.isFavorite ? "star.fill" : "star")
-                            .foregroundColor(station.isFavorite ? .yellow : .gray)
-                            .padding(.trailing)
-                    }
-                    StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0, color: Color.yellow)
+                Button(action: {
+                    bookStations.toggleFavorite(station: station)
+                    //set favorit
+                }) {
+                    Image(systemName: station.isFavorite ? "star.fill" : "star")
+                        .foregroundColor(station.isFavorite ? .yellow : .gray)
                         .padding(.trailing)
                 }
-                HStack{
-                    if(station.minAltitude != -1 && station.maxAltitude != -1)
-                    {
-                        Text("\(station.minAltitude)m - \(station.maxAltitude)m")
-                    }else if(station.maxAltitude != -1){
-                        Text("\(station.maxAltitude)m")
-                    }else if(station.minAltitude != -1){
-                        Text("\(station.minAltitude)m")
-                    }
-                    StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0, color: Color.yellow)
+                StationTopicView(text: "\(travelDistance)km", condition: travelDistance > 0, color: Color.yellow)
+                    .padding(.trailing)
+            }
+            HStack{
+                if(station.minAltitude != -1 && station.maxAltitude != -1)
+                {
+                    Text("\(station.minAltitude)m - \(station.maxAltitude)m")
+                }else if(station.maxAltitude != -1){
+                    Text("\(station.maxAltitude)m")
+                }else if(station.minAltitude != -1){
+                    Text("\(station.minAltitude)m")
                 }
-                .padding(.bottom)
-                .onAppear {
-                    station.getTravelTime(clientCoordinate: self.thisClientLocation.location) { travelTime, travelDistance in
-                        self.travelTime = travelTime
-                        self.travelDistance = travelDistance
-                    }
+                StationTopicView(text: "\(secondsToHoursMinutesSeconds(travelTime))", condition: travelTime > 0, color: Color.yellow)
+            }
+            .padding(.bottom)
+            .onAppear {
+                station.getTravelTime(clientCoordinate: self.clientLocation.location) { travelTime, travelDistance in
+                    self.travelTime = travelTime
+                    self.travelDistance = travelDistance
                 }
-                
             }
-            .background(Color.white)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .onTapGesture {
-                isShowingDetail.toggle()
-            }
-            .sheet(isPresented: $isShowingDetail) {
-                StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, sheetSize: $sheetSize
-                )
-                .presentationDetents([.fraction(sheetSize), .large])
-                .animation(.easeIn, value: sheetSize)
-            }
+            
         }
-    
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+        .onTapGesture {
+            isShowingDetail.toggle()
+        }
+        .sheet(isPresented: $isShowingDetail) {
+            StationModaleView(station: station,travelTime: travelTime, travelDistance: travelDistance, sheetSize: $sheetSize
+            )
+            .presentationDetents([.fraction(sheetSize), .large])
+            .animation(.easeIn, value: sheetSize)
+        }.environmentObject(clientLocation)
     }
+    
+}
 
 struct StationTopicView: View {
     var text: String

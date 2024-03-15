@@ -15,6 +15,7 @@ struct HomeView: View {
     }
 
     @EnvironmentObject var bookStations: BookStations
+    @EnvironmentObject var clientLocation: Location
     
     @State private var selectedFilter: Filter = .filter
     @State private var search: String = ""
@@ -46,7 +47,9 @@ struct HomeView: View {
             
             .navigationTitle("Home")
             .searchable(text: $search, isPresented: $searchIsActive, prompt: "Search..")
-        }.environmentObject(bookStations)
+        }
+        .environmentObject(bookStations)
+        .environmentObject(clientLocation)
     }
 }
 

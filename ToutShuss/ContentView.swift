@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var bookStation: BookStations = BookStations()
+    @ObservedObject var clientLocation: Location = Location(long: 6.11667, lat: 45.9)
     
     var body: some View {
         TabView{
@@ -31,6 +32,7 @@ struct ContentView: View {
         }
         .accentColor(.purple)
         .environmentObject(bookStation)
+        .environmentObject(clientLocation)
     }
 }
 

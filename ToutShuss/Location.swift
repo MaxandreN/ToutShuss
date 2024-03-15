@@ -9,9 +9,14 @@ import Foundation
 import MapKit
 import SwiftUI
 
-struct Location {
-    var long: Double = 0
-    var lat: Double = 0
+class Location: ObservableObject {
+    var long: Double
+    var lat: Double
+    
+    init(long: Double, lat: Double) {
+        self.long = long
+        self.lat = lat
+    }
 
     var location: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -48,5 +53,3 @@ struct Location {
         }
     }
 }
-
-var clientLocation: Location = Location(long: 6.11667, lat: 45.9)

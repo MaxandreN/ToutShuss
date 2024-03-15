@@ -10,7 +10,7 @@ import SwiftUI
 struct StationDetailView: View {
     @EnvironmentObject var bookStations: BookStations
     var station: Station
-    @State var thisClientLocation: Location = clientLocation
+    @EnvironmentObject var thisClientLocation: Location
     @State var travelTime: Int = -1
     @State var travelDistance: Int = -1
     let formatter = DateFormatter()

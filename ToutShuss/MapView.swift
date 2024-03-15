@@ -27,6 +27,7 @@ struct AnnotationItem: Identifiable, Equatable {
 
 struct MapView: View {
     @EnvironmentObject var bookStations: BookStations
+    @EnvironmentObject var clientLocation: Location
     @StateObject var permissions = Permissions()
     
     var annotationsItems : [AnnotationItem] {
@@ -105,7 +106,7 @@ struct MapView: View {
             .frame(alignment: .topLeading)
         }.onReceive(permissions.$localizationPermissionState, perform: { _ in
             centerRegionOnUser()
-        })
+        }).environmentObject(clientLocation)
     }
     
     func centerRegionOnUser() {

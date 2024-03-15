@@ -9,8 +9,9 @@ import SwiftUI
 
 struct StationModaleView: View {
     @EnvironmentObject var bookStations: BookStations
+    @EnvironmentObject var clientLocation: Location
+    
     var station: Station
-    @State var thisClientLocation: Location = clientLocation
     @State var travelTime: Int = -1
     @State var travelDistance: Int = -1
     @State var isPresented: Bool = false
@@ -129,21 +130,6 @@ struct StationModaleView: View {
                     }
                 })
                 .padding()
-                
-
-//                NavigationLink(destination: StationDetailView(station: station,travelTime: travelTime, travelDistance: travelDistance, onFavoriteToggle: onFavoriteToggle)){
-//                    HStack {
-//                        Image(systemName: "mountain.2.fill")
-//                            .foregroundColor(.white)
-//                            .padding(.trailing)
-//                        Text("Découvrir la station")
-//                            .foregroundColor(.white)
-//                    }
-//                    .frame(maxWidth: .infinity)
-//                    .padding()
-//                    .background(Color.purple)
-//                    .cornerRadius(10)
-//                }
             }
         }.environmentObject(bookStations)
     }
