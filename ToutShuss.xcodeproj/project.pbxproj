@@ -29,6 +29,7 @@
 		5671F16D2B6D3F9C00BB62FF /* ToutShussUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F16C2B6D3F9C00BB62FF /* ToutShussUITests.swift */; };
 		5671F16F2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F16E2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift */; };
 		5671F17C2B6D420C00BB62FF /* environnement.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5671F17B2B6D420C00BB62FF /* environnement.plist */; };
+		D11929BB2BA49CC00024689F /* data_station_parser.json in Resources */ = {isa = PBXBuildFile; fileRef = D11929BA2BA49CC00024689F /* data_station_parser.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		5671F16C2B6D3F9C00BB62FF /* ToutShussUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussUITests.swift; sourceTree = "<group>"; };
 		5671F16E2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5671F17B2B6D420C00BB62FF /* environnement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = environnement.plist; sourceTree = "<group>"; };
+		D11929BA2BA49CC00024689F /* data_station_parser.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data_station_parser.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				56215B2E2BA497B90041C804 /* Models */,
 				5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */,
 				5671F1532B6D3F9A00BB62FF /* ContentView.swift */,
+				D11929BA2BA49CC00024689F /* data_station_parser.json */,
 				5671F1552B6D3F9B00BB62FF /* Assets.xcassets */,
 				5671F1572B6D3F9B00BB62FF /* Preview Content */,
 				5671F17B2B6D420C00BB62FF /* environnement.plist */,
@@ -287,6 +290,7 @@
 				5671F1592B6D3F9B00BB62FF /* Preview Assets.xcassets in Resources */,
 				5671F17C2B6D420C00BB62FF /* environnement.plist in Resources */,
 				5671F1562B6D3F9B00BB62FF /* Assets.xcassets in Resources */,
+				D11929BB2BA49CC00024689F /* data_station_parser.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +504,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -507,6 +512,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "con.dev-mds.ToutShuss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -531,6 +539,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -538,6 +547,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "con.dev-mds.ToutShuss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

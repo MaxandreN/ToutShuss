@@ -19,6 +19,31 @@ struct Galerie: Identifiable, Hashable, Decodable, Encodable {
     var cover: String = "https://img.freepik.com/photos-gratuite/portrait-belle-chaine-montagnes-recouverte-neige-sous-ciel-nuageux_181624-4974.jpg"
     var images: [String] = []
 }
+struct StationDTO: Codable {
+    let adresse, numinstallation, codepostal, nominstallation: String
+    let newName: String
+    let coordonnees: Coordonnees
+    let depCode, depNom, regCode, regNom: String
+
+    enum CodingKeys: String, CodingKey {
+        case adresse, numinstallation, codepostal, nominstallation
+        case newName = "new_name"
+        case coordonnees
+        case depCode = "dep_code"
+        case depNom = "dep_nom"
+        case regCode = "reg_code"
+        case regNom = "reg_nom"
+    }
+    
+    func toStation() -> Station {
+        let station = Station(name: self.newName, long: self.coordonnees.lon, lat: self.coordonnees.lat,domain: self.nominstallation, cityCode: Int(self.codepostal) ?? 0)
+    }
+}
+
+// MARK: - Coordonnees
+struct Coordonnees: Codable {
+    let lon, lat: Double
+}
 
 
 struct Station: Identifiable, Hashable, Decodable, Encodable {
@@ -110,6 +135,14 @@ class BookStations: ObservableObject {
     }
     
     func load() {
+        
+        let url = Bundle.main.url(forResource: "data_station_parser", withExtension:"json")!
+                    do {
+                        let data = try Data(contentsOf: url)
+                        let result = try JSONDecoder().decode(, from: data)
+                        self.plistDictionnary = result
+                    } catch { fatalError("Could not boot app without configuration plist") }
+        
         if let donnees = UserDefaults.standard.data(forKey: "stations"),
            let objets = try? JSONDecoder().decode([Station].self, from: donnees), false {
                 setStations(NewListStations: objets)
