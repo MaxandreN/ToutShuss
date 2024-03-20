@@ -31,13 +31,6 @@ struct StationDetailView: View {
     var body: some View {
         ScrollView{
             VStack{
-                Button(action: {
-                    Task {
-                        await loadData()
-                    }
-                }, label: {
-                    Text("Load Data")
-                })
                 HStack{
                     VStack{
                         Text(feedState.value)
