@@ -10,10 +10,11 @@ import SwiftUI
 struct StationDetailView: View {
     @EnvironmentObject var bookStations: BookStations
     var station: Station
-    @EnvironmentObject var thisClientLocation: Location
+    @EnvironmentObject var clientLocation: Location
     @State var travelTime: Int = -1
     @State var travelDistance: Int = -1
     let formatter = DateFormatter()
+    @StateObject var feedState = FeedState()
     
     func format(date:Date, format:String = "EEEE, d MMM") -> String {
         // Create Date Formatter
@@ -22,11 +23,25 @@ struct StationDetailView: View {
         return formatter.string(from: date)
     }
     
+    func loadData() async {
+        await feedState.fetchWeatherFeed(lat: Float(station.lat ?? 0), lon: Float(station.long ?? 0))
+    }
+    
     
     var body: some View {
         ScrollView{
             VStack{
+                Button(action: {
+                    Task {
+                        await loadData()
+                    }
+                }, label: {
+                    Text("Load Data")
+                })
                 HStack{
+                    VStack{
+                        Text(feedState.value)
+                    }
                     VStack{
                         HStack{
                             Text(station.domain ?? "")
@@ -60,7 +75,7 @@ struct StationDetailView: View {
                 }
                 Rectangle()
                     .fill(Color.gray.opacity(0.4))
-                    .frame(width: .infinity, height: 2)
+                     .frame(width: .infinity, height: 2)
                 // list des images
                 ScrollView(.horizontal){
                     HStack{
@@ -105,22 +120,32 @@ struct StationDetailView: View {
                         .frame(width: .infinity, height: 300)
                     // list de météos
                     ScrollView(.horizontal){
-                        
                         HStack{
-                            ForEach(station.weatherReports, id: \.self) { weatherReport in
-                                VStack{
-                                    Image(systemName: weatherReport.weather.symbol)
+                            if feedState.weatherReports != [] {
+                                ForEach(feedState.weatherReports, id: \.self) { weatherReport in
+                                    VStack{
+                                        Image(systemName: weatherReport.weather.symbol)
+                                            .frame(width: 50, height: 50)
+                                            .foregroundColor(.gray.opacity(0.6))
+                                            .background(weatherReport.weather.color.opacity(0.2))
+                                            .clipShape(RoundedRectangle(cornerRadius: 100))
+                                        Text(format(date: weatherReport.date, format: "EEEE"))
+                                        Text(format(date: weatherReport.date, format: "HH:mm"))
+                                        Text("\(String(format: "%.1f", weatherReport.temperature))°")
+                                            .foregroundColor( weatherReport.temperature < -5.1 ? Color.blue : weatherReport.temperature < 0.1 ? Color.cyan : weatherReport.temperature > 5.0 ? Color.orange : Color.gray)
+                                    }.padding()
+                                }
+                            } else {
+                                // Use a placeholder when data is not available
+                                ForEach(0..<3, id: \.self) { _ in
+                                    RoundedRectangle(cornerRadius: 12.0)
                                         .frame(width: 50, height: 50)
-                                        .foregroundColor(.gray.opacity(0.6))
-                                        .background(weatherReport.weather.color.opacity(0.2))
-                                        .clipShape(RoundedRectangle(cornerRadius: 100))
-                                    Text(format(date: weatherReport.date, format: "EEEE"))
-                                    Text("\(String(format: "%.1f", weatherReport.temperature))°")
-                                }.padding()
+                                        .foregroundStyle(.placeholder)
+                                }
                             }
                             
+                            
                         }
-                       
                     }
                 }
                 Rectangle()
@@ -202,7 +227,13 @@ struct StationDetailView: View {
                 Spacer()
             }
             .navigationTitle(station.name)
+            .task {
+                do{
+                    await loadData()
+                }
+            }
         }
+        
     }
 }
 

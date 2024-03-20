@@ -11,22 +11,22 @@ struct WeatherReport: Identifiable, Hashable, Decodable, Encodable {
     var id: UUID = UUID()
     var date: Date
     var weather: Weather
-    var temperature : Double
+    var temperature : Float
     var altitude : Int = -1
 }
 
 enum Weather: String, CaseIterable, Hashable, Decodable, Encodable {
-    case sunny, cloudy, rainy, snowy, windy, stormy, foggy, overcast, partlyCloudyDay, partlyCloudyNight, clearDay, clearNight, hail, sleet, gust, tornado, dust, smoky, earthquake, fire
+    case sunny, Clouds, Rain, Snow, windy, stormy, foggy, overcast, partlyCloudyDay, partlyCloudyNight, Clear, clearNight, hail, sleet, gust, tornado, dust, smoky, earthquake, fire
 
     var symbol: String {
         switch self {
-        case .sunny, .clearDay:
+        case .sunny, .Clear:
             return "sun.max.fill"
-        case .cloudy, .partlyCloudyDay, .partlyCloudyNight:
+        case .Clouds, .partlyCloudyDay, .partlyCloudyNight:
             return "cloud.fill"
-        case .rainy:
+        case .Rain:
             return "cloud.rain.fill"
-        case .snowy:
+        case .Snow:
             return "snow"
         case .windy, .gust:
             return "wind"

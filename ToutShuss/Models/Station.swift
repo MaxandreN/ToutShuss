@@ -180,9 +180,9 @@ class BookStations: ObservableObject {
                                         ],
                                         weatherReports: [
                                             WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -2.0, altitude: 1850),
-                                            WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .cloudy, temperature: -1.5, altitude: 1850),
-                                            WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .rainy, temperature: 1.0, altitude: 1850),
-                                            WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .snowy, temperature: -3.0, altitude: 1850)
+                                            WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Clouds, temperature: -1.5, altitude: 1850),
+                                            WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Rain, temperature: 1.0, altitude: 1850),
+                                            WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Snow, temperature: -3.0, altitude: 1850)
                                         ]
                                     ),
                                     Station(
@@ -218,7 +218,7 @@ class BookStations: ObservableObject {
                                         weatherReports: [
                                             WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -1.5, altitude: 1550),
                                             WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .partlyCloudyDay, temperature: -1.0, altitude: 1550),
-                                            WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .cloudy, temperature: 0.5, altitude: 1550)
+                                            WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Clouds, temperature: 0.5, altitude: 1550)
                                         ]
                                     ),
                                 Station(
@@ -249,8 +249,8 @@ class BookStations: ObservableObject {
                                     ],
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -1.0, altitude: 810),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .cloudy, temperature: -0.5, altitude: 810),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .snowy, temperature: -2.0, altitude: 810)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Clouds, temperature: -0.5, altitude: 810),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Snow, temperature: -2.0, altitude: 810)
                                     ]
                                 ),
                                 Station(
@@ -305,10 +305,10 @@ class BookStations: ObservableObject {
                                         Event(name: "Après-ski Party", date: Date().addingTimeInterval(86400 * 8), activity: .cycle, pricing: .free)
                                     ],
                                     weatherReports: [
-                                        WeatherReport(date: Date().addingTimeInterval(86400), weather: .cloudy, temperature: -2.0, altitude: 1450),
+                                        WeatherReport(date: Date().addingTimeInterval(86400), weather: .Clouds, temperature: -2.0, altitude: 1450),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .sunny, temperature: -1.5, altitude: 1450),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .rainy, temperature: 1.0, altitude: 1450),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .snowy, temperature: -3.0, altitude: 1450)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Rain, temperature: 1.0, altitude: 1450),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Snow, temperature: -3.0, altitude: 1450)
                                     ]
                                 ),
                                 Station(
@@ -340,9 +340,9 @@ class BookStations: ObservableObject {
                                     ],
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -5.0, altitude: 2300),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .cloudy, temperature: -4.5, altitude: 2300),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .rainy, temperature: -1.0, altitude: 2300),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .snowy, temperature: -6.0, altitude: 2300)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Clouds, temperature: -4.5, altitude: 2300),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Rain, temperature: -1.0, altitude: 2300),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Snow, temperature: -6.0, altitude: 2300)
                                     ]
                                 ),
                                 Station(
@@ -375,8 +375,8 @@ class BookStations: ObservableObject {
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -3.0, altitude: 1200),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .sunny, temperature: -2.5, altitude: 1200),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .rainy, temperature: 0.0, altitude: 1200),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .snowy, temperature: -4.0, altitude: 1200)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Rain, temperature: 0.0, altitude: 1200),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Snow, temperature: -4.0, altitude: 1200)
                                     ]
                                 ),
                                 Station(
@@ -408,9 +408,9 @@ class BookStations: ObservableObject {
                                     ],
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -2.0, altitude: 1172),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .cloudy, temperature: -1.5, altitude: 1172),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .snowy, temperature: -2.0, altitude: 1172),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .rainy, temperature: 0.5, altitude: 1172)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Clouds, temperature: -1.5, altitude: 1172),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Snow, temperature: -2.0, altitude: 1172),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Rain, temperature: 0.5, altitude: 1172)
                                     ]
                                 ),
                                 Station(
@@ -441,9 +441,9 @@ class BookStations: ObservableObject {
                                         Event(name: "Après Ski Party", date: Date().addingTimeInterval(86400 * 6), activity: .competition, pricing: .paid)
                                     ],
                                     weatherReports: [
-                                        WeatherReport(date: Date().addingTimeInterval(86400), weather: .cloudy, temperature: -1.0, altitude: 1000),
+                                        WeatherReport(date: Date().addingTimeInterval(86400), weather: .Clouds, temperature: -1.0, altitude: 1000),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .partlyCloudyDay, temperature: 0.5, altitude: 1000),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .rainy, temperature: 1.0, altitude: 1000),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Rain, temperature: 1.0, altitude: 1000),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .sunny, temperature: 2.0, altitude: 1000)
                                     ]
                                 ),
@@ -475,8 +475,8 @@ class BookStations: ObservableObject {
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -1.5, altitude: 1800),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .partlyCloudyNight, temperature: -2.0, altitude: 1800),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .snowy, temperature: -1.0, altitude: 1800),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .cloudy, temperature: 0.5, altitude: 1800)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Snow, temperature: -1.0, altitude: 1800),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Clouds, temperature: 0.5, altitude: 1800)
                                     ]
                                 ),
                                 Station(
@@ -506,7 +506,7 @@ class BookStations: ObservableObject {
                                     ],
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -5.0, altitude: 1035),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .cloudy, temperature: -3.0, altitude: 1035),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Clouds, temperature: -3.0, altitude: 1035),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .partlyCloudyDay, temperature: -2.0, altitude: 1035),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .windy, temperature: -1.5, altitude: 1035)
                                     ]
@@ -538,9 +538,9 @@ class BookStations: ObservableObject {
                                     ],
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -4.0, altitude: 1600),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .snowy, temperature: -3.0, altitude: 1600),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Snow, temperature: -3.0, altitude: 1600),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .windy, temperature: -2.0, altitude: 1600),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .cloudy, temperature: -1.5, altitude: 1600)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Clouds, temperature: -1.5, altitude: 1600)
                                     ]
                                 ),
                                 Station(
@@ -570,9 +570,9 @@ class BookStations: ObservableObject {
                                     ],
                                     weatherReports: [
                                         WeatherReport(date: Date().addingTimeInterval(86400), weather: .sunny, temperature: -3.0, altitude: 1150),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .rainy, temperature: -1.0, altitude: 1150),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .Rain, temperature: -1.0, altitude: 1150),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .partlyCloudyDay, temperature: 0.0, altitude: 1150),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .snowy, temperature: -2.0, altitude: 1150)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Snow, temperature: -2.0, altitude: 1150)
                                     ]
                                 ),
                                 Station(
@@ -601,10 +601,10 @@ class BookStations: ObservableObject {
                                         Event(name: "Après-Ski DJ Party", date: Date().addingTimeInterval(86400 * 6), activity: .cycle, pricing: .paid)
                                     ],
                                     weatherReports: [
-                                        WeatherReport(date: Date().addingTimeInterval(86400), weather: .cloudy, temperature: -2.0, altitude: 1000),
+                                        WeatherReport(date: Date().addingTimeInterval(86400), weather: .Clouds, temperature: -2.0, altitude: 1000),
                                         WeatherReport(date: Date().addingTimeInterval(86400 * 2), weather: .partlyCloudyDay, temperature: -1.0, altitude: 1000),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .rainy, temperature: 0.0, altitude: 1000),
-                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .snowy, temperature: -3.0, altitude: 1000)
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 3), weather: .Rain, temperature: 0.0, altitude: 1000),
+                                        WeatherReport(date: Date().addingTimeInterval(86400 * 4), weather: .Snow, temperature: -3.0, altitude: 1000)
                                     ]
                                 ),
 

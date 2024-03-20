@@ -23,8 +23,6 @@ class Location: ObservableObject {
         self.long = 0
         self.lat = 0
         
-        
-        
         self.region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: lat, longitude: long),
             span: MKCoordinateSpan(
@@ -41,8 +39,8 @@ class Location: ObservableObject {
             permissions.askForLocalizationPermission()
             if permissions.localizationPermissionState != .denied || permissions.localizationPermissionState == .notDetermined {
                 if let currentLocation = permissions.locationManager.location {
-                    print(currentLocation.coordinate.latitude)
-                    print(currentLocation.coordinate.longitude)
+                    // print(currentLocation.coordinate.latitude)
+                    // print(currentLocation.coordinate.longitude)
                     isReady = true
                     self.lat = currentLocation.coordinate.latitude
                     self.long = currentLocation.coordinate.longitude
@@ -70,7 +68,7 @@ class Location: ObservableObject {
         directions.calculate { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("Error calculating directions: \(error)")
+                   // print("Error calculating directions: \(error)")
                 }
                 completion(-1, -1)
                 return
