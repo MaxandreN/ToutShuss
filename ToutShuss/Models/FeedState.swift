@@ -36,8 +36,6 @@ class APIWeatherReport: Decodable, Identifiable{
     var weather: [APIWeatherReportWeather]
     var clouds: APIWeatherReportClouds
     var wind: APIWeatherReportWind
-    //var visibility: Int = 0
-    //var pop: Float = 0
     
     enum CodingKeys: CodingKey {
         case dt
@@ -45,19 +43,21 @@ class APIWeatherReport: Decodable, Identifiable{
         case weather
         case clouds
         case wind
-        //case visibility
-        //case pop
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.dt = try container.decode(Date.self, forKey: .dt)
         self.main = try container.decode(APIWeatherReportMain.self, forKey: .main)
         self.weather = try container.decode([APIWeatherReportWeather].self, forKey: .weather)
         self.clouds = try container.decode(APIWeatherReportClouds.self, forKey: .clouds)
         self.wind = try container.decode(APIWeatherReportWind.self, forKey: .wind)
-        //self.visibility = Int32(try container.decode(Int.self, forKey: .visibility))
-        //self.pop = try container.decode(Float.self, forKey: .pop)
+        self.dt = cleanDate(date: try container.decode(Date.self, forKey: .dt))
+        
+    }
+    
+    func cleanDate(date:Date)->Date{
+        let newDate = Calendar.current.date(byAdding: .year, value: -31, to: date)!
+        return Calendar.current.date(byAdding: .day, value: -1, to: newDate)!
     }
     
     func toWeatherReport () -> WeatherReport {
@@ -91,7 +91,6 @@ struct APIWeatherBook: Decodable{
 
 class FeedState: ObservableObject {
     @Published var weatherReports: [WeatherReport] = []
-    @Published var value: String = "non"
 
     func fetchWeatherFeed(lat:Float, lon:Float) async {
         do {
@@ -113,7 +112,7 @@ class FeedState: ObservableObject {
                 }
                 
                 weatherReportbook.sort { a, b in
-                    a.date > b.date
+                    a.date < b.date
                 }
                 
                 weatherReports = weatherReportbook
@@ -123,8 +122,6 @@ class FeedState: ObservableObject {
             print("Error: \(error)")
         }
     }
-
-
 }
 
 #Preview {

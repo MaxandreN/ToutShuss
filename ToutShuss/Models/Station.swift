@@ -19,6 +19,7 @@ struct Galerie: Identifiable, Hashable, Decodable, Encodable {
     var cover: String = "https://img.freepik.com/photos-gratuite/portrait-belle-chaine-montagnes-recouverte-neige-sous-ciel-nuageux_181624-4974.jpg"
     var images: [String] = []
 }
+
 struct StationDTO: Codable {
     let adresse, numinstallation, codepostal, nominstallation: String
     let newName: String
@@ -36,7 +37,6 @@ struct StationDTO: Codable {
     }
 }
 
-// MARK: - Coordonnees
 struct Coordonnees: Codable {
     let lon, lat: Double
 }
@@ -617,4 +617,25 @@ class BookStations: ObservableObject {
     }
 }
 
-
+class ReadData: ObservableObject  {
+    @Published var stations = [Station]()
+    
+        
+    init(){
+        loadData()
+    }
+    
+    func loadData()  {
+        guard let url = Bundle.main.url(forResource: "data_station_parser", withExtension: "json")
+            else {
+                print("Json file not found")
+                return
+            }
+        
+        let data = try? Data(contentsOf: url)
+        let stations = try? JSONDecoder().decode([Station].self, from: data!)
+        self.stations = stations!
+        
+    }
+     
+}

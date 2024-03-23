@@ -15,6 +15,28 @@ struct WeatherReport: Identifiable, Hashable, Decodable, Encodable {
     var altitude : Int = -1
 }
 
+enum WeekDayFR: String {
+    case Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+    var toFr: String {
+        switch self {
+        case .Monday:
+            return "Lundi"
+        case .Tuesday:
+            return "Mardi"
+        case .Wednesday:
+            return "Mercredi"
+        case .Thursday:
+            return "Jeudi"
+        case .Friday:
+            return "Vendredi"
+        case .Saturday:
+            return "Samedi"
+        case .Sunday:
+            return "Dimanche"
+        }
+    }
+}
+
 enum Weather: String, CaseIterable, Hashable, Decodable, Encodable {
     case sunny, Clouds, Rain, Snow, windy, stormy, foggy, overcast, partlyCloudyDay, partlyCloudyNight, Clear, clearNight, hail, sleet, gust, tornado, dust, smoky, earthquake, fire
 

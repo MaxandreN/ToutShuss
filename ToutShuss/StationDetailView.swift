@@ -33,9 +33,6 @@ struct StationDetailView: View {
             VStack{
                 HStack{
                     VStack{
-                        Text(feedState.value)
-                    }
-                    VStack{
                         HStack{
                             Text(station.domain ?? "")
                             Spacer()
@@ -119,13 +116,16 @@ struct StationDetailView: View {
                                     VStack{
                                         Image(systemName: weatherReport.weather.symbol)
                                             .frame(width: 50, height: 50)
-                                            .foregroundColor(.gray.opacity(0.6))
-                                            .background(weatherReport.weather.color.opacity(0.2))
+                                            .foregroundColor(weatherReport.temperature < -10.1 ? Color.cyan.opacity(0.6) : .gray.opacity(0.6))
+                                            .background(weatherReport.temperature < -10.1 ? Color.cyan.opacity(0.2) : weatherReport.weather.color.opacity(0.2))
                                             .clipShape(RoundedRectangle(cornerRadius: 100))
-                                        Text(format(date: weatherReport.date, format: "EEEE"))
-                                        Text(format(date: weatherReport.date, format: "HH:mm"))
                                         Text("\(String(format: "%.1f", weatherReport.temperature))°")
-                                            .foregroundColor( weatherReport.temperature < -5.1 ? Color.blue : weatherReport.temperature < 0.1 ? Color.cyan : weatherReport.temperature > 5.0 ? Color.orange : Color.gray)
+                                            .foregroundColor( weatherReport.temperature < -5.1 ? Color.blue : weatherReport.temperature < 0.1 ? Color.cyan : weatherReport.temperature < 5.1 ? Color.green : weatherReport.temperature < 10.1 ? Color.gray :  weatherReport.temperature < 20.1 ? Color.orange :  Color.red)
+                                        HStack{
+                                            Text(WeekDayFR(rawValue:  format(date: weatherReport.date, format: "EEEE"))!.toFr)
+                                            Text(format(date: weatherReport.date, format: "dd"))
+                                        }
+                                        Text(format(date: weatherReport.date, format: "HH:mm"))
                                     }.padding()
                                 }
                             } else {
