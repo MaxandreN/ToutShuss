@@ -41,6 +41,8 @@ struct HomeView: View {
                             station.name.lowercased().contains(search.lowercased()) || search.isEmpty  || (
                                 selectedFilter == Filter.close && !station.isOpen
                             )
+                        }.sorted { stA, stB in
+                            stA.distance(fromLocation: clientLocation.baseLocation) < stB.distance(fromLocation: clientLocation.baseLocation)
                         }) { station  in
                             StationCardView(station: station)
                         }

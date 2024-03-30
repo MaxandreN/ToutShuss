@@ -61,14 +61,14 @@ struct StationModaleView: View {
                         HStack{
                             Image(systemName: "arrow.up.and.person.rectangle.portrait")
                                 .foregroundColor(.gray)
-                            StationTopicView(text: station.lift == -1 && station.lift == -1 ? "?" : "\(station.liftOpen) / \(station.lift) remontées mécaniques", condition: true, color: Color.white)
+                            StationTopicView(text: station.liftOpen == -1 || station.liftOpen == -1  ? station.lift == -1  ? "--" : "\(station.lift) remontées mécaniques" : "\(station.liftOpen) / \(station.lift) remontées mécaniques", condition: true, color: Color.white)
                             Spacer()
                         }
                         // km de piste du domain skiable
                         HStack{
                             Image(systemName: "figure.skiing.downhill")
                                 .foregroundColor(.gray)
-                            StationTopicView(text: station.slopeDistanceOpen == -1 && station.slopeDistance == -1 ? "?" : "\(station.slopeDistanceOpen)km / \(station.slopeDistance)km de piste", condition: true, color: Color.white)
+                            StationTopicView(text: station.slopeDistanceOpen == -1 || station.slopeDistance == -1  ? station.slopeDistance == -1  ? "--" : "\(station.slopeDistance) km de piste" : "\(station.slopeDistanceOpen) / \(station.slopeDistance) km de piste", condition: true, color: Color.white)
                             Spacer()
                         }
                         // temps de trajet

@@ -126,10 +126,7 @@ struct Station: Identifiable, Hashable, Decodable, Encodable {
         }else{
             completion(self.travelTime, self.travelDistance)
         }
-        
     }
-    
-    
 }
 
 
@@ -145,31 +142,40 @@ class BookStations: ObservableObject {
     }
     
     func load() {
-        for jsonStation in self.loadFile(){
-            self.stations.append(
-            Station(
-                name: jsonStation.name,
-                lift: jsonStation.lift,
-                liftOpen: -1,
-                slopeDistance: jsonStation.slopeDistance,
-                slopeDistanceOpen: -1,
-                maxAltitude: jsonStation.maxAltitude,
-                minAltitude: jsonStation.minAltitude,
-                galerie: Galerie(),
-                long: jsonStation.long,
-                lat: jsonStation.lat,
-                domain: jsonStation.domain,
-                cityCode: jsonStation.cityCode,
-                contact: Contact(),
-                isOpen: true,
-                price: jsonStation.price,
-                note: Int(jsonStation.note),
-                isFavorite: false,
-                events: [],
-                weatherReports: []))
+        if let data = UserDefaults.standard.data(forKey: "Station") {
+            if let decoded = try? JSONDecoder().decode([Station].self, from: data) {
+                self.stations = decoded
+            }
+        }else{
+            for jsonStation in self.loadFile(){
+                self.stations.append(
+                    Station(
+                        name: jsonStation.name,
+                        lift: jsonStation.lift,
+                        liftOpen: -1,
+                        slopeDistance: jsonStation.slopeDistance,
+                        slopeDistanceOpen: -1,
+                        maxAltitude: jsonStation.maxAltitude,
+                        minAltitude: jsonStation.minAltitude,
+                        galerie: Galerie(),
+                        long: jsonStation.long,
+                        lat: jsonStation.lat,
+                        domain: jsonStation.domain,
+                        cityCode: jsonStation.cityCode,
+                        contact: Contact(),
+                        isOpen: true,
+                        price: jsonStation.price,
+                        note: Int(jsonStation.note),
+                        isFavorite: false,
+                        events: [],
+                        weatherReports: []
+                    )
+                )
+            }
+            self.save()
         }
-       
-        self.save()
+
+
     }
     
     func loadFile() -> [JsonStation]{
@@ -188,7 +194,7 @@ class BookStations: ObservableObject {
     
     func save() {
         if let donnees = try? JSONEncoder().encode(stations) {
-            UserDefaults.standard.set(donnees, forKey: "stations")
+            UserDefaults.standard.set(donnees, forKey: "Station")
         }
     }
     
@@ -196,6 +202,7 @@ class BookStations: ObservableObject {
         if let index = stations.firstIndex(where: { $0.id == station.id }) {
             stations[index].toggleFavorite()
         }
+        self.save()
     }
 }
 

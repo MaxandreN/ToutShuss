@@ -60,7 +60,7 @@ struct StationDetailView: View {
                             Spacer()
                             Image(systemName: "wallet.pass.fill")
                                 .foregroundColor(.gray)
-                            StationTopicView(text: station.price == -1 ? "?" : "\(station.price)€", condition: true, color: Color.white)
+                            StationTopicView(text: station.price == -1 ? "--" : "\(station.price)€", condition: true, color: Color.white)
                         }
                     }
                 }
@@ -106,12 +106,9 @@ struct StationDetailView: View {
                         }.padding(.leading)
                     }
                     //afficher la map
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3))
-                    
-                StationMapView(
-                    selectedItem: .constant(AnnotationItem(id: station.id, lat: station.lat!, long: station.long!, station: station))
-                )
+                    StationMapView(
+                        selectedItem: .constant(AnnotationItem(id: station.id, lat: station.lat!, long: station.long!, station: station))
+                    )
                     .frame(width: .infinity, height: 300)
                     // list de météos
                     ScrollView(.horizontal){
@@ -174,14 +171,14 @@ struct StationDetailView: View {
                     HStack{
                         Image(systemName: "arrow.up.and.person.rectangle.portrait")
                             .foregroundColor(.gray)
-                        StationTopicView(text: station.lift == -1 && station.lift == -1 ? "?" : "\(station.liftOpen) / \(station.lift) remontées mécaniques", condition: true, color: Color.white)
+                        StationTopicView(text: station.liftOpen == -1 || station.liftOpen == -1  ? station.lift == -1  ? "--" : "\(station.lift) remontées mécaniques" : "\(station.liftOpen) / \(station.lift) remontées mécaniques", condition: true, color: Color.white)
                         Spacer()
                     }
                     // km de piste du domain skiable
                     HStack{
                         Image(systemName: "figure.skiing.downhill")
                             .foregroundColor(.gray)
-                        StationTopicView(text: station.slopeDistanceOpen == -1 && station.slopeDistance == -1 ? "?" : "\(station.slopeDistanceOpen)km / \(station.slopeDistance)km de piste", condition: true, color: Color.white)
+                        StationTopicView(text: station.slopeDistanceOpen == -1 || station.slopeDistance == -1  ? station.slopeDistance == -1  ? "--" : "\(station.slopeDistance) km de piste" : "\(station.slopeDistanceOpen) / \(station.slopeDistance) km de piste", condition: true, color: Color.white)
                         Spacer()
                     }
                     // temps de trajet
@@ -208,16 +205,17 @@ struct StationDetailView: View {
                 //affichage du contact
                 VStack(alignment: .leading){
                     HStack{
-                        Text("Contacts")
+                        Text(station.contact.phone == "nan" && station.contact.email == "nan" ? "": "Contacts")
                             .bold()
                         Spacer()
                     }
                     HStack{
-                        Text(station.contact.phone)
+                        Text(station.contact.phone == "nan" ? "": station.contact.phone)
                         Spacer()
                     }
                     HStack{
-                        Link(station.contact.email, destination: URL(string: "mailto:\(station.contact.email)")!)
+                        Text(station.contact.phone == "nan" ? "": station.contact.phone)
+                        Link(station.contact.email == "nan" ? "":  station.contact.email, destination: URL(string: "mailto:\(station.contact.email)")!)
                         Spacer()
                     }
                 }
