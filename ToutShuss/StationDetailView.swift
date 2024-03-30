@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct StationDetailView: View {
     @EnvironmentObject var bookStations: BookStations
@@ -107,7 +108,11 @@ struct StationDetailView: View {
                     //afficher la map
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))
-                        .frame(width: .infinity, height: 300)
+                    
+                StationMapView(
+                    selectedItem: .constant(AnnotationItem(id: station.id, lat: station.lat!, long: station.long!, station: station))
+                )
+                    .frame(width: .infinity, height: 300)
                     // list de météos
                     ScrollView(.horizontal){
                         HStack{

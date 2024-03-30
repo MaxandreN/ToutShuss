@@ -31,6 +31,8 @@
 		5671F16D2B6D3F9C00BB62FF /* ToutShussUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F16C2B6D3F9C00BB62FF /* ToutShussUITests.swift */; };
 		5671F16F2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671F16E2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift */; };
 		5671F17C2B6D420C00BB62FF /* environnement.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5671F17B2B6D420C00BB62FF /* environnement.plist */; };
+		567C17582BB843AA004C8759 /* StationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567C17572BB843AA004C8759 /* StationMapView.swift */; };
+		568236572BB7678B000F0753 /* data_station_parser.json in Resources */ = {isa = PBXBuildFile; fileRef = 568236562BB7678B000F0753 /* data_station_parser.json */; };
 		56C403852BA9A27D005A9FDC /* FeedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C403842BA9A27D005A9FDC /* FeedState.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,8 @@
 		5671F16C2B6D3F9C00BB62FF /* ToutShussUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussUITests.swift; sourceTree = "<group>"; };
 		5671F16E2B6D3F9C00BB62FF /* ToutShussUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToutShussUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5671F17B2B6D420C00BB62FF /* environnement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = environnement.plist; sourceTree = "<group>"; };
+		567C17572BB843AA004C8759 /* StationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationMapView.swift; sourceTree = "<group>"; };
+		568236562BB7678B000F0753 /* data_station_parser.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data_station_parser.json; path = ToutShuss/data_station_parser.json; sourceTree = SOURCE_ROOT; };
 		56C403842BA9A27D005A9FDC /* FeedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +152,7 @@
 		5671F1502B6D3F9A00BB62FF /* ToutShuss */ = {
 			isa = PBXGroup;
 			children = (
+				568236562BB7678B000F0753 /* data_station_parser.json */,
 				56215B2E2BA497B90041C804 /* Models */,
 				5671F1512B6D3F9A00BB62FF /* ToutShussApp.swift */,
 				5671F1532B6D3F9A00BB62FF /* ContentView.swift */,
@@ -160,6 +165,7 @@
 				565281E82B7939C800979631 /* StationCardView.swift */,
 				566F30E72B85DBC500B06428 /* StationDetailView.swift */,
 				566F30E92B85E5DB00B06428 /* StationModaleView.swift */,
+				567C17572BB843AA004C8759 /* StationMapView.swift */,
 			);
 			path = ToutShuss;
 			sourceTree = "<group>";
@@ -296,6 +302,7 @@
 				5671F1592B6D3F9B00BB62FF /* Preview Assets.xcassets in Resources */,
 				5671F17C2B6D420C00BB62FF /* environnement.plist in Resources */,
 				5671F1562B6D3F9B00BB62FF /* Assets.xcassets in Resources */,
+				568236572BB7678B000F0753 /* data_station_parser.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +342,7 @@
 				565281E02B77F92000979631 /* Station.swift in Sources */,
 				565281EB2B79629D00979631 /* Permissions.swift in Sources */,
 				5671F1522B6D3F9A00BB62FF /* ToutShussApp.swift in Sources */,
+				567C17582BB843AA004C8759 /* StationMapView.swift in Sources */,
 				56C403852BA9A27D005A9FDC /* FeedState.swift in Sources */,
 				566F30EC2B87CE5F00B06428 /* WeatherReport.swift in Sources */,
 				565281ED2B79647000979631 /* AppDelegate.swift in Sources */,

@@ -10,31 +10,22 @@ import SwiftUI
 import CoreLocation
 import MapKit
 
-struct AnnotationItem: Identifiable, Equatable {
-    var id: UUID
-    var lat: Double = 0
-    var long: Double = 0
-    var isMonitored: Bool = false
-    var station: Station
-    
-    init(id: UUID, lat: Double = 0, long: Double = 0, station: Station) {
-        self.id = id
-        self.lat = lat
-        self.long = long
-        self.station = station
-    }
-    
-    mutating func toggleMonitored () {
-        isMonitored = !isMonitored
-    }
-}
-
-
-struct MapView: View {
+struct StationMapView: View {
     @EnvironmentObject var bookStations: BookStations
     @EnvironmentObject var clientLocation: Location
     @StateObject var permissions = Permissions()
-    
+    @Binding var selectedItem: AnnotationItem
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(
+            latitude: 45.91044837855673,
+            longitude: 6.143521781870996
+        ),
+        span: MKCoordinateSpan(
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05
+        )
+    )
+
     var annotationsItems : [AnnotationItem] {
         get {
             return bookStations.stations.map({
@@ -48,16 +39,13 @@ struct MapView: View {
         }
     }
     
-    @Binding var selectedItem: AnnotationItem?
     @State var sheetSize: CGFloat = 0.6
-    
     @State private var userTrackingMode: MapUserTrackingMode = .none
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-
             Map(
-                coordinateRegion: $clientLocation.region,
+                coordinateRegion: $region,
                 interactionModes: MapInteractionModes.all,
                 showsUserLocation: true,
                 userTrackingMode: $userTrackingMode,
@@ -91,27 +79,52 @@ struct MapView: View {
                     }
                 }
             }, label: {
-                Image(systemName: "location.fill.viewfinder")
+                Image(systemName: userTrackingMode != .follow ? "location.fill.viewfinder" : "skis.fill")
                     .foregroundColor(.white)
                     .padding(10)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous))
             })
             .padding()
             .frame(alignment: .topLeading)
-        }.onReceive(permissions.$localizationPermissionState, perform: { _ in
-            centerRegionOnUser()
-        })
+        }.onAppear(){
+            region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: self.selectedItem.lat,
+                    longitude: self.selectedItem.long
+                ),
+                span: MKCoordinateSpan(
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05
+                )
+            )
+        }
         .environmentObject(clientLocation)
     }
     
     func centerRegionOnUser() {
-        if permissions.localizationPermissionState != .denied || permissions.localizationPermissionState == .notDetermined {
-            userTrackingMode = .follow
-            if let currentLocation = permissions.locationManager.location {
-                clientLocation.lat = currentLocation.coordinate.latitude
-                clientLocation.long = currentLocation.coordinate.longitude
+        if(userTrackingMode != .follow){
+            if permissions.localizationPermissionState != .denied || permissions.localizationPermissionState == .notDetermined {
+                userTrackingMode = .follow
+                if let currentLocation = permissions.locationManager.location {
+                    clientLocation.lat = currentLocation.coordinate.latitude
+                    clientLocation.long = currentLocation.coordinate.longitude
+                }
             }
+        }else{
+            userTrackingMode = .none
+            region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: self.selectedItem.lat,
+                    longitude: self.selectedItem.long
+                ),
+                span: MKCoordinateSpan(
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05
+                )
+            )
+
         }
+
     }
 }
 

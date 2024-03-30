@@ -36,9 +36,13 @@ struct HomeView: View {
                 ScrollView {
                     LazyVStack(spacing: 20) {
                         ForEach(bookStations.stations.filter { station in
-                            station.name.lowercased().contains(search.lowercased()) || search.isEmpty
-                        }) { station in
-                            StationCardView(station: station) 
+                            station.name.lowercased().contains(search.lowercased()) || search.isEmpty  || (
+                                selectedFilter == Filter.close && !station.isOpen
+                            )
+                        }.sorted {
+                            $0.distance(fromLocation: clientLocation.baseLocation) > $1.distance(fromLocation: clientLocation.baseLocation)
+                        }) { station  in
+                            StationCardView(station: station)
                         }
                     }
                     .padding(.horizontal, 20)
