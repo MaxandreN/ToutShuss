@@ -112,16 +112,18 @@ struct StationMapView: View {
             }
         }else{
             userTrackingMode = .none
-            region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(
-                    latitude: self.selectedItem.lat,
-                    longitude: self.selectedItem.long
-                ),
-                span: MKCoordinateSpan(
-                    latitudeDelta: 0.05,
-                    longitudeDelta: 0.05
+            withAnimation(.spring()) {
+                region = MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(
+                        latitude: self.selectedItem.lat,
+                        longitude: self.selectedItem.long
+                    ),
+                    span: MKCoordinateSpan(
+                        latitudeDelta: 0.05,
+                        longitudeDelta: 0.05
+                    )
                 )
-            )
+            }
 
         }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct HomeView: View {
     
@@ -16,6 +17,7 @@ struct HomeView: View {
 
     @EnvironmentObject var bookStations: BookStations
     @EnvironmentObject var clientLocation: Location
+    @StateObject var permissions = Permissions()
     
     @State private var selectedFilter: Filter = .filter
     @State private var search: String = ""
@@ -39,8 +41,6 @@ struct HomeView: View {
                             station.name.lowercased().contains(search.lowercased()) || search.isEmpty  || (
                                 selectedFilter == Filter.close && !station.isOpen
                             )
-                        }.sorted {
-                            $0.distance(fromLocation: clientLocation.baseLocation) > $1.distance(fromLocation: clientLocation.baseLocation)
                         }) { station  in
                             StationCardView(station: station)
                         }
@@ -51,9 +51,23 @@ struct HomeView: View {
             
             .navigationTitle("Home")
             .searchable(text: $search, isPresented: $searchIsActive, prompt: "Search..")
-        }
+        }.onReceive(permissions.$localizationPermissionState, perform: { _ in
+            sortStations()
+        })
         .environmentObject(bookStations)
         .environmentObject(clientLocation)
+    }
+    
+    func sortStations() {
+        if permissions.localizationPermissionState != .denied || permissions.localizationPermissionState == .notDetermined {
+            if let currentLocation = permissions.locationManager.location {
+                clientLocation.lat = currentLocation.coordinate.latitude
+                clientLocation.long = currentLocation.coordinate.longitude
+                bookStations.stations.sort { stA, stB in
+                    stA.distance(fromLocation: CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)) < stB.distance(fromLocation: CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude))
+                }
+            }
+        }
     }
 }
 

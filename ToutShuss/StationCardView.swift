@@ -42,7 +42,6 @@ struct StationCardView: View {
                     .font(.title)
                     .padding(.leading, 10)
                 Spacer()
-                Text("\(station.distance(fromLocation: clientLocation.baseLocation))")
                 Button(action: {
                     bookStations.toggleFavorite(station: station)
                     //set favorit
