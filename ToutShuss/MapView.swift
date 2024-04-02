@@ -55,7 +55,6 @@ struct MapView: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
-
             Map(
                 coordinateRegion: $clientLocation.region,
                 interactionModes: MapInteractionModes.all,
