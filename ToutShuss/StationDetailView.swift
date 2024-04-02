@@ -205,17 +205,16 @@ struct StationDetailView: View {
                 //affichage du contact
                 VStack(alignment: .leading){
                     HStack{
-                        Text(station.contact.phone == "nan" && station.contact.email == "nan" ? "": "Contacts")
+                        Text(station.contact.phone == "NaN" && station.contact.email == "NaN" ? "": "Contacts")
                             .bold()
                         Spacer()
                     }
                     HStack{
-                        Text(station.contact.phone == "nan" ? "": station.contact.phone)
+                        Text(station.contact.phone == "NaN" ? "": station.contact.phone)
                         Spacer()
                     }
                     HStack{
-                        Text(station.contact.phone == "nan" ? "": station.contact.phone)
-                        Link(station.contact.email == "nan" ? "":  station.contact.email, destination: URL(string: "mailto:\(station.contact.email)")!)
+                        Link(station.contact.email == "NaN" ? "":  station.contact.email, destination: URL(string: "mailto:\(station.contact.email)")!)
                         Spacer()
                     }
                 }

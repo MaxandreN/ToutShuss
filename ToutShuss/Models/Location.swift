@@ -13,7 +13,6 @@ class Location: ObservableObject {
     var long: Double
     var lat: Double
     var permissions = Permissions()
-    var isReady = false
     var region: MKCoordinateRegion
     var location: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -33,27 +32,9 @@ class Location: ObservableObject {
             )
         )
     }
-    
-    func fetchLocation() -> Bool{
-        if permissions.notificationPermissionState == .denied {
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString + Bundle.main.bundleIdentifier!)!, options: [:], completionHandler: nil)
-        } else {
-            permissions.askForLocalizationPermission()
-            if permissions.localizationPermissionState != .denied || permissions.localizationPermissionState == .notDetermined {
-                if let currentLocation = permissions.locationManager.location {
-                    isReady = true
-                    self.lat = currentLocation.coordinate.latitude
-                    self.long = currentLocation.coordinate.longitude
-                }
-            }
-        }
-        return isReady
-    }
+
     
     func fetchTravelTime(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D, completion: @escaping (Int, Int) -> Void) {
-        if(!isReady){
-            fetchLocation()
-        }
         let sourcePlacemark = MKPlacemark(coordinate: source)
         let destinationPlacemark = MKPlacemark(coordinate: destination)
         

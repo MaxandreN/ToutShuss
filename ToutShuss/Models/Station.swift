@@ -10,31 +10,24 @@ import MapKit
 
 struct Contact: Identifiable, Hashable, Decodable, Encodable {
     var id: UUID = UUID()
-    var email: String = "nan"
-    var phone: String = "nan"
+    var email: String = "NaN"
+    var phone: String = "NaN"
+}
+
+struct JsonContact: Decodable {
+    var email: String = "NaN"
+    var phone: String = "NaN"
+    
+    init(email: String = "NaN", phone: String = "NaN") {
+        self.email = email
+        self.phone = phone
+    }
 }
 
 struct Galerie: Identifiable, Hashable, Decodable, Encodable {
     var id: UUID = UUID()
     var cover: String = "https://img.freepik.com/photos-gratuite/portrait-belle-chaine-montagnes-recouverte-neige-sous-ciel-nuageux_181624-4974.jpg"
     var images: [String] = []
-}
-
-struct StationDTO: Codable {
-    let adresse, numinstallation, codepostal, nominstallation: String
-    let newName: String
-    let coordonnees: Coordonnees
-    let depCode, depNom, regCode, regNom: String
-
-    enum CodingKeys: String, CodingKey {
-        case adresse, numinstallation, codepostal, nominstallation
-        case newName = "new_name"
-        case coordonnees
-        case depCode = "dep_code"
-        case depNom = "dep_nom"
-        case regCode = "reg_code"
-        case regNom = "reg_nom"
-    }
 }
 
 struct Coordonnees: Codable {
@@ -74,9 +67,6 @@ struct Station: Identifiable, Hashable, Decodable, Encodable {
             return nil
         }
     }
-    
-
-
 
     init(name: String, lift: Int = -1, liftOpen: Int = -1, slopeDistance: Int = -1, slopeDistanceOpen: Int = -1, maxAltitude: Int = -1, minAltitude: Int = -1, galerie: Galerie = Galerie(), long: Double? = nil, lat: Double? = nil, domain: String? = nil, cityCode: Int = -1, contact: Contact = Contact(), isOpen: Bool = true, price: Float = -1, note: Int = -1, isFavorite: Bool = false, events: [Event] = [], weatherReports: [WeatherReport] = []) {
             self.name = name
@@ -97,14 +87,13 @@ struct Station: Identifiable, Hashable, Decodable, Encodable {
             self.note = note
             self.isFavorite = isFavorite
             self.events = events
+            self.contact = contact
             self.weatherReports = weatherReports
         }
     
     mutating func toggleFavorite() {
         self.isFavorite = !isFavorite
     }
-    
-    
     
     func distance(fromLocation: CLLocation) -> Float {
         if ((lat != nil) && (long != nil)){
@@ -142,54 +131,57 @@ class BookStations: ObservableObject {
     }
     
     func load() {
-        if let data = UserDefaults.standard.data(forKey: "Station") {
-            if let decoded = try? JSONDecoder().decode([Station].self, from: data) {
-                self.stations = decoded
+        let json = self.loadFile()
+        
+        //si il y a un version en local
+        if let loaclStationVersion = UserDefaults.standard.data(forKey: "jsonStationVersion"), let loaclStationVersionDecoded = try? JSONDecoder().decode(Int.self, from: loaclStationVersion){
+            //si la version n'est pas la meme en local et dans le fichier json
+            if(loaclStationVersionDecoded != json.version){
+                
+                saveFromFile(json: json)
+                
+            }else{
+                //si l'on chage bien les données en local
+                if let jsonStation = UserDefaults.standard.data(forKey: "Station"), let decoded = try? JSONDecoder().decode([Station].self, from: jsonStation) {
+                    self.stations = decoded
+                }else{
+                    //si non on chage le fichier
+                    saveFromFile(json: json)
+                }
             }
         }else{
-            for jsonStation in self.loadFile(){
-                self.stations.append(
-                    Station(
-                        name: jsonStation.name,
-                        lift: jsonStation.lift,
-                        liftOpen: -1,
-                        slopeDistance: jsonStation.slopeDistance,
-                        slopeDistanceOpen: -1,
-                        maxAltitude: jsonStation.maxAltitude,
-                        minAltitude: jsonStation.minAltitude,
-                        galerie: Galerie(),
-                        long: jsonStation.long,
-                        lat: jsonStation.lat,
-                        domain: jsonStation.domain,
-                        cityCode: jsonStation.cityCode,
-                        contact: Contact(),
-                        isOpen: true,
-                        price: jsonStation.price,
-                        note: Int(jsonStation.note),
-                        isFavorite: false,
-                        events: [],
-                        weatherReports: []
-                    )
-                )
-            }
-            self.save()
+            //si il n'y a de version en local on chage les données du fichier
+            saveFromFile(json: json)
         }
-
-
     }
     
-    func loadFile() -> [JsonStation]{
+    func saveFromFile(json:JsonFile){
+        print("saveFromFile" + String(json.stations.count))
+        self.setStations(NewListStations: json.getStation())
+        if let donnees = try? JSONEncoder().encode(json.version) {
+            UserDefaults.standard.set(donnees, forKey: "jsonStationVersion")
+        }
+        self.save()
+    }
+    
+    func loadFile() -> JsonFile{
         guard let url = Bundle.main.url(forResource: "data_station_parser", withExtension: "json") else {
             print("json file not found")
-            return []
+            return JsonFile(version: 0, stations: [])
         }
         if let data = try? Data(contentsOf: url),
-           let jsonStations = try? JSONDecoder().decode([JsonStation].self, from: data){
-                return jsonStations
+           let jsonFile = try? JSONDecoder().decode(JsonFile.self, from: data){
+                return jsonFile
         }else{
             print("données no conformes")
+            do {
+                let data = try Data(contentsOf: url)
+                _ = try JSONDecoder().decode(JsonFile.self, from: data)
+            } catch {
+                print("Error info: \(error)")
+            }
         }
-        return []
+        return JsonFile(version: 0, stations: [])
     }
     
     func save() {
@@ -203,6 +195,41 @@ class BookStations: ObservableObject {
             stations[index].toggleFavorite()
         }
         self.save()
+    }
+}
+
+struct JsonFile: Decodable{
+    var version : Int
+    var stations: [JsonStation]
+    
+    func getStation() -> [Station]{
+        var stations: [Station] = []
+        for jsonStation in self.stations{
+            stations.append(
+                Station(
+                    name: jsonStation.name,
+                    lift: jsonStation.lift,
+                    liftOpen: -1,
+                    slopeDistance: jsonStation.slopeDistance,
+                    slopeDistanceOpen: -1,
+                    maxAltitude: jsonStation.maxAltitude,
+                    minAltitude: jsonStation.minAltitude,
+                    galerie: Galerie(),
+                    long: jsonStation.long,
+                    lat: jsonStation.lat,
+                    domain: jsonStation.domain,
+                    cityCode: jsonStation.cityCode,
+                    contact: jsonStation.getContact(),
+                    isOpen: true,
+                    price: jsonStation.price,
+                    note: Int(jsonStation.note),
+                    isFavorite: false,
+                    events: jsonStation.getEvents(),
+                    weatherReports: []
+                )
+            )
+        }
+        return stations
     }
 }
 
@@ -222,23 +249,47 @@ struct JsonStation: Decodable{
     var long: Double
     var lat: Double
     var cityCode: Int
+    var event: [JsonEvent]
+    var contact : JsonContact = JsonContact()
     
-}
-
-class ReadData: ObservableObject  {
-    @Published var stations = [JsonStation]()
-    
-    init(){
-        readJSONFile(forName: "data_station_parser")
-    }
-    
-    func readJSONFile(forName name: String) {
+    func getEvents() -> [Event]{
+        var events: [Event] = []
         
-            
-
+        for event in self.event{
+            events.append(event.getEvent())
+        }
+        return events
+    }
+    
+    func getContact() -> Contact{
+        var contact: Contact = 
+            Contact(
+                email: self.contact.email,
+                phone: self.contact.phone
+            )
+        return contact
+    }
+        
+    init(name: String, massif: String, minAltitude: Int, maxAltitude: Int, lift: Int, slopeNb: Int, slopeDistance: Int, slopeDistanceNordic: Int, note: Float, domain: String, price: Float, priceWeek: Float, long: Double, lat: Double, cityCode: Int, event: [JsonEvent], contact: JsonContact) {
+        self.name = name
+        self.massif = massif
+        self.minAltitude = minAltitude
+        self.maxAltitude = maxAltitude
+        self.lift = lift
+        self.slopeNb = slopeNb
+        self.slopeDistance = slopeDistance
+        self.slopeDistanceNordic = slopeDistanceNordic
+        self.note = note
+        self.domain = domain
+        self.price = price
+        self.priceWeek = priceWeek
+        self.long = long
+        self.lat = lat
+        self.cityCode = cityCode
+        self.event = event.count > 1 ? event : []
+        self.contact = contact
     }
 }
-
 
 #Preview {
     ContentView()
