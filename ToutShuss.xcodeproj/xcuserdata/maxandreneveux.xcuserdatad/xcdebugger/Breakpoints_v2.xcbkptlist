@@ -146,38 +146,6 @@
             endingLineNumber = "109"
             landmarkName = "centerRegionOnUser()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0D48FB93-D855-43BA-8016-9C9EFE761FDE - d59071748adfb1e5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ToutShuss.MapView.centerRegionOnUser() -&gt; ()"
-                  moduleName = "ToutShuss"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxandreneveux/Documents/Cours/master/2023-2024/dev/swift/ToutShuss/ToutShuss/MapView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "109"
-                  endingLineNumber = "109"
-                  offsetFromSymbolStart = "964">
-               </Location>
-               <Location
-                  uuid = "0D48FB93-D855-43BA-8016-9C9EFE761FDE - d59071748adfb1e5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ToutShuss.MapView.centerRegionOnUser() -&gt; ()"
-                  moduleName = "ToutShuss"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxandreneveux/Documents/Cours/master/2023-2024/dev/swift/ToutShuss/ToutShuss/MapView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "109"
-                  endingLineNumber = "109"
-                  offsetFromSymbolStart = "1180">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
