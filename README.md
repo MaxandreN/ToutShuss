@@ -4,8 +4,9 @@
 ![alt text](/assets_ReadMe/ToutShuss_banner.png)
 <img alt="Licence Badge" src="https://img.shields.io/badge/Licence-ISC-green">
 <img alt="Swift - iOS" src="https://img.shields.io/badge/Swift-iOS-orange">
+<img alt="OpenWeather - WeatherAPI" src="https://img.shields.io/badge/OpenWeather-WeatherAPI-orange">
 
-## 📋 Project
+## 📋 ToutShuss Project
 
 |Home Screen|Map Screen|Favory Screen|Info Screen|More Info Screen|
 |---|---|---|---|---|
@@ -41,6 +42,29 @@ Show more details about a station
 ### 📖 More Info Screen
 
 Display all station information
+
+## External tools
+
+<img alt="OpenWeather" src="assets_ReadMe/OpenWeather.png" width="200">
+
+To display the station weather we used the OpenWeather API. <br>(https://openweathermap.org/appid)
+
+### Add you OpenWeather API key
+
+1- Create an OpenWeather account 
+
+2- Create an API key
+
+3- Open environnement.plist (/ToutShuss/environnement.plist)
+
+4- Set the key : ``<string>YOUR_KEY</string>``
+```
+4 <dict>
+5 	<key>OpenWeatherMap_Key</key>
+6 	<string>YOUR_KEY</string>
+7 </dict>
+```
+
 
 ## Contributing
 
